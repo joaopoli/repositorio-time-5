@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Aluno - Transparência e apoio para sua jornada universitária</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1D3557',
+                        secondary: '#00B4D8',
+                        background: '#F8F9FA',
+                        success: '#52B788',
+                        error: '#E63946',
+                        charcoal: '#343A40',
+                        dark: {
+                            primary: '#00B4D8',
+                            secondary: '#1D3557',
+                            background: '#121212',
+                            card: '#1E1E1E',
+                            text: '#FFFFFF',
+                            charcoal: '#B0B0B0',
+                        }
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        card: '16px',
+                    },
+                    boxShadow: {
+                        card: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col dark:bg-dark-background dark:text-dark-text">
+    <!-- Header -->
+    <header class="bg-primary text-white sticky top-0 z-50 shadow-md dark:bg-dark-card">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 hover:opacity-80 transition">
+                <i data-feather="book-open" class="w-8 h-8 text-secondary"></i>
+                <h1 class="font-montserrat text-2xl font-bold">SOS Aluno</h1>
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <!-- Navigation links removed -->
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <i data-feather="sun" class="hidden dark:block w-5 h-5"></i>
+                    <i data-feather="moon" class="block dark:hidden w-5 h-5"></i>
+                </button>
+                <a href="login.html" class="hover:text-secondary transition">Login</a>
+                <a href="cadastro.html" class="bg-secondary hover:bg-opacity-90 px-4 py-2 rounded-lg font-medium transition">Cadastrar-se</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="flex-grow container mx-auto px-4 py-12 flex flex-col items-center">
+        <h2 class="font-montserrat text-4xl md:text-5xl font-bold text-center text-primary max-w-3xl leading-tight mb-6">
+            Transparência e apoio para sua jornada universitária
+        </h2>
+        <p class="text-xl text-charcoal max-w-2xl text-center mb-12">
+            Encontre avaliações de professores, informações sobre cursos e instituições para tomar decisões informadas.
+        </p>
+
+        <!-- Search Section -->
+        <div class="w-full max-w-3xl mb-16">
+            <div class="relative flex">
+                <input 
+                    type="text" 
+                    placeholder="Procure professores, cursos ou instituições..." 
+                    class="flex-grow px-6 py-4 border border-gray-200 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+                >
+                <button class="bg-secondary hover:bg-opacity-90 text-white px-8 py-4 rounded-r-lg font-medium transition">
+                    Buscar
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Access Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+            <div class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer">
+                <div class="flex items-center mb-4">
+                    <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                        <i data-feather="edit-3" class="w-6 h-6 text-primary"></i>
+                    </div>
+                    <h3 class="font-montserrat text-lg font-semibold text-primary">Avaliar professor</h3>
+                </div>
+                <p class="text-charcoal text-opacity-80">Compartilhe sua experiência para ajudar outros alunos.</p>
+            </div>
+            <div class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer">
+                <div class="flex items-center mb-4">
+                    <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                        <i data-feather="book" class="w-6 h-6 text-primary"></i>
+                    </div>
+                    <h3 class="font-montserrat text-lg font-semibold text-primary">Ver cursos</h3>
+                </div>
+                <p class="text-charcoal text-opacity-80">Descubra informações detalhadas sobre os cursos universitários.</p>
+            </div>
+            <div class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer">
+                <div class="flex items-center mb-4">
+                    <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                        <i data-feather="info" class="w-6 h-6 text-primary"></i>
+                    </div>
+                    <h3 class="font-montserrat text-lg font-semibold text-primary">Sobre o SOS Aluno</h3>
+                </div>
+                <p class="text-charcoal text-opacity-80">Conheça nossa missão de trazer transparência à vida acadêmica.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12 dark:bg-dark-card">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i data-feather="book-open" class="w-6 h-6 text-secondary"></i>
+                        <h3 class="font-montserrat text-xl font-bold">SOS Aluno</h3>
+                    </div>
+                    <p class="text-white text-opacity-80">Transparência e apoio para sua jornada universitária.</p>
+                </div>
+                <div>
+                    <h4 class="font-montserrat font-semibold mb-4">Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-secondary transition">Início</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Sobre</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-montserrat font-semibold mb-4">Institucional</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-secondary transition">Sobre</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-montserrat font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-secondary transition">Termos de uso</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Política de privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white border-opacity-20 mt-8 pt-8 text-center text-white text-opacity-60">
+                <p>© 2023 SOS Aluno. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+        
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.search-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+            feather.replace();
+        });
+
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+        feather.replace();
+    </script>
+</body>
+</html>
