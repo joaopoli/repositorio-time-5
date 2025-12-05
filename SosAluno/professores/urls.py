@@ -12,7 +12,7 @@ urlpatterns = [
     path('', include(router.urls)),
     
     # URLs para renderizar templates HTML (com dados do Django)
-    path('', views.professores_list, name='professores-list'),
+    path('list/', views.professores_list, name='professores-list'),
     path('<str:id_slug>/', views.professor_detail, name='professor-detail'),
     
     # URLs para JSON simples (API)
