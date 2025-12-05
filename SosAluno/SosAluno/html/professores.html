@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Aluno - Professores</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles_css.css">
+    <link rel="stylesheet" href="../css/professores.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1D3557',
+                        secondary: '#00B4D8',
+                        background: '#F8F9FA',
+                        success: '#52B788',
+                        error: '#E63946',
+                        charcoal: '#343A40',
+                        dark: {
+                            primary: '#00B4D8',
+                            secondary: '#1D3557',
+                            background: '#121212',
+                            card: '#1E1E1E',
+                            text: '#FFFFFF',
+                            charcoal: '#B0B0B0',
+                        }
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        card: '16px',
+                    },
+                    boxShadow: {
+                        card: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col dark:bg-dark-background dark:text-dark-text">
+    <!-- Header -->
+    <header class="bg-primary text-white sticky top-0 z-50 shadow-md dark:bg-dark-card">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 hover:opacity-80 transition">
+                <i data-feather="book-open" class="w-8 h-8 text-secondary"></i>
+                <h1 class="font-montserrat text-2xl font-bold">SOS Aluno</h1>
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <!-- Navigation links removed -->
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <i data-feather="sun" class="hidden dark:block w-5 h-5"></i>
+                    <i data-feather="moon" class="block dark:hidden w-5 h-5"></i>
+                </button>
+                <a href="login.html" class="hover:text-secondary transition">Login</a>
+                <a href="cadastro.html" class="bg-secondary hover:bg-opacity-90 px-4 py-2 rounded-lg font-medium transition">Cadastrar-se</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-12">
+        <!-- Page Title -->
+        <div class="mb-12">
+            <h2 class="font-montserrat text-4xl md:text-5xl font-bold text-primary dark:text-dark-primary mb-4">
+                Professores
+            </h2>
+            <p class="text-xl text-charcoal dark:text-dark-charcoal max-w-2xl">
+                Explore avaliações e informações sobre professores. Clique em um cartão para ver detalhes completos.
+            </p>
+        </div>
+
+        <!-- Filtro e Busca (Opcional) -->
+        <div class="mb-8 flex flex-col md:flex-row gap-4">
+            <input 
+                type="text" 
+                id="search-prof"
+                placeholder="Buscar professor..." 
+                class="flex-grow px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent dark:bg-dark-card dark:border-gray-700"
+            >
+        </div>
+
+        <!-- Grid de Professores (Previews) -->
+        <div id="professores-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cartões de professores serão preenchidos via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12 dark:bg-dark-card mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i data-feather="book-open" class="w-6 h-6 text-secondary"></i>
+                        <h3 class="font-montserrat text-xl font-bold">SOS Aluno</h3>
+                    </div>
+                    <p class="text-white text-opacity-80">Transparência e apoio para sua jornada universitária.</p>
+                </div>
+                <div>
+                    <h4 class="font-montserrat font-semibold mb-4">Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:text-secondary transition">Início</a></li>
+                        <li><a href="professores.html" class="hover:text-secondary transition">Professores</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-montserrat font-semibold mb-4">Institucional</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-secondary transition">Sobre</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-montserrat font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-secondary transition">Termos de uso</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Política de privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white border-opacity-20 mt-8 pt-8 text-center text-white text-opacity-60">
+                <p>© 2023 SOS Aluno. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+        
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+            feather.replace();
+        });
+
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+        feather.replace();
+
+        // --- Lógica para carregar e exibir professores ---
+        async function carregarProfessores() {
+            try {
+                const response = await fetch('../data/professores.json');
+                const professores = await response.json();
+                renderizarProfessores(professores);
+                
+                // Adiciona funcionalidade de busca
+                const searchInput = document.getElementById('search-prof');
+                searchInput.addEventListener('input', () => {
+                    const query = searchInput.value.toLowerCase();
+                    const professoreFiltrados = professores.filter(p => 
+                        p.nome.toLowerCase().includes(query) || 
+                        p.materia.toLowerCase().includes(query) ||
+                        p.instituicao.toLowerCase().includes(query)
+                    );
+                    renderizarProfessores(professoreFiltrados);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar professores:', error);
+                document.getElementById('professores-grid').innerHTML = '<p class="text-center text-error text-xl col-span-full">Erro ao carregar dados dos professores.</p>';
+            }
+        }
+
+        function renderizarProfessores(professores) {
+            const grid = document.getElementById('professores-grid');
+            grid.innerHTML = '';
+
+            if (professores.length === 0) {
+                grid.innerHTML = '<p class="text-center text-charcoal dark:text-dark-charcoal col-span-full">Nenhum professor encontrado.</p>';
+                return;
+            }
+
+            professores.forEach(prof => {
+                const cartao = document.createElement('div');
+                cartao.className = 'bg-white dark:bg-dark-card rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer transform hover:scale-105 overflow-hidden';
+                cartao.onclick = () => {
+                    window.location.href = `professor.html?id=${prof.id}`;
+                };
+
+                // Renderiza as estrelas
+                let estrelasHtml = '';
+                const avaliacao = prof.avaliacao_geral;
+                for (let i = 1; i <= 5; i++) {
+                    estrelasHtml += `<span class="text-yellow-400 ${avaliacao >= i ? 'text-lg' : 'text-gray-300 text-lg'}">★</span>`;
+                }
+
+                cartao.innerHTML = `
+                    <div class="relative h-48 bg-gradient-to-br from-primary to-secondary overflow-hidden">
+                        <img src="${prof.foto}" alt="${prof.nome}" class="w-full h-full object-cover opacity-80">
+                        <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-montserrat text-xl font-bold text-primary dark:text-dark-primary mb-2">${prof.nome}</h3>
+                        <p class="text-sm text-charcoal dark:text-dark-charcoal mb-1">
+                            <i data-feather="book" class="w-4 h-4 inline mr-1"></i>${prof.materia}
+                        </p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                            <i data-feather="map-pin" class="w-4 h-4 inline mr-1"></i>${prof.instituicao}
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-1">
+                                ${estrelasHtml}
+                            </div>
+                            <span class="text-sm font-semibold text-primary dark:text-dark-primary">${prof.avaliacao_geral.toFixed(1)}</span>
+                        </div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">${prof.total_avaliacoes} avaliações</p>
+                    </div>
+                `;
+
+                grid.appendChild(cartao);
+            });
+
+            feather.replace(); // Recarrega os ícones
+        }
+
+        document.addEventListener('DOMContentLoaded', carregarProfessores);
+    </script>
+</body>
+</html>
