@@ -175,15 +175,19 @@
 
         // --- Lógica para carregar dados do professor ---
         async function carregarProfessor() {
-            // Em um ambiente real, o ID viria da URL (ex: ?id=alexandre-meslin)
-            // Para este protótipo estático, vamos usar o ID do easter egg por padrão.
-            const professorId = 'alexandre-meslin'; 
+            // Lê o ID do professor da URL (ex: ?id=alexandre-meslin)
+            const urlParams = new URLSearchParams(window.location.search);
+            const professorId = urlParams.get('id') || 'alexandre-meslin'; // Usa o ID da URL ou o padrão (Alexandre Meslin)
+            console.log('ID do professor da URL:', professorId); // Debug 
 
             try {
-                // Simula a busca de dados no JSON (em um ambiente real, seria uma chamada de API)
-                const response = await fetch('../data/professores.json');
-                const professores = await response.json();
-                const professor = professores.find(p => p.id === professorId);
+                // Tenta carregar da API Django
+                const response = await fetch(`/professores/api/professor/${professorId}/`);
+                if (!response.ok) {
+                    throw new Error('Professor nao encontrado na API');
+                }
+                const professor = await response.json();
+                console.log('Professor encontrado:', professor); // Debug
 
                 if (!professor) {
                     document.getElementById('professor-profile').innerHTML = '<p class="text-center text-error text-xl">Professor não encontrado.</p>';

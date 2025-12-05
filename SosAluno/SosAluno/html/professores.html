@@ -157,7 +157,8 @@
         // --- Lógica para carregar e exibir professores ---
         async function carregarProfessores() {
             try {
-                const response = await fetch('../data/professores.json');
+                // Tenta carregar da API Django primeiro
+                const response = await fetch('/professores/api/professores-list/');
                 const professores = await response.json();
                 renderizarProfessores(professores);
                 
