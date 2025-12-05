@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "professores",
+    "SosAluno.professores",
 ]
 
 MIDDLEWARE = [
@@ -131,7 +131,7 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = BASE_DIR / "SosAluno" / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

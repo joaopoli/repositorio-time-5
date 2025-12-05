@@ -1,16 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOS Aluno - {{ professor.nome }}</title>
+    <title>SOS Aluno - Professores</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../static/css/styles_css.css">
-    <link rel="stylesheet" href="../../static/css/professor.css">
+    <link rel="stylesheet" href="{% static 'css/styles_css.css' %}">
+    <link rel="stylesheet" href="{% static 'css/professores.css' %}">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -71,18 +72,40 @@
 
     <!-- Main Content -->
     <main class="flex-grow container mx-auto px-4 py-12">
-        <div id="professor-profile" class="bg-white dark:bg-dark-card p-8 rounded-card shadow-card">
-            <!-- Profile Header -->
-            <div class="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 border-b pb-6 mb-6">
-                <img src="{{ professor.foto.url }}" alt="Foto do Professor" class="w-32 h-32 rounded-full object-cover border-4 border-secondary">
-                <div class="text-center md:text-left">
-                    <h2 class="font-montserrat text-3xl font-bold text-primary dark:text-dark-primary">{{ professor.nome }}</h2>
-                    <p class="text-xl text-charcoal dark:text-dark-charcoal mt-1">{{ professor.materia }}</p>
-                    <p class="text-lg text-gray-500 dark:text-gray-400 mt-1">{{ professor.instituicao }}</p>
-                    
-                    <!-- Avaliação Geral -->
-                    <div class="flex items-center justify-center md:justify-start mt-4">
-                        <div class="flex text-yellow-400 text-2xl">
+        <!-- Título e Busca -->
+        <div class="mb-12">
+            <h2 class="font-montserrat text-4xl font-bold text-primary dark:text-dark-primary mb-6">Professores</h2>
+            <div class="flex gap-4">
+                <input 
+                    type="text" 
+                    id="search-prof" 
+                    placeholder="Buscar por nome, matéria ou instituição..." 
+                    class="flex-grow px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-dark-card dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-secondary"
+                >
+                <button class="bg-secondary hover:bg-opacity-90 text-white px-6 py-3 rounded-lg font-medium transition flex items-center">
+                    <i data-feather="search" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Grid de Professores -->
+        <div id="professores-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for professor in professores %}
+            <a href="{% url 'professor-detail' professor.id_slug %}" class="bg-white dark:bg-dark-card rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer transform hover:scale-105 overflow-hidden block">
+                <div class="p-6">
+                    <!-- Foto -->
+                    <div class="mb-4">
+                        <img src="{{ professor.foto.url }}" alt="{{ professor.nome }}" class="w-full h-48 object-cover rounded-lg">
+                    </div>
+
+                    <!-- Informações -->
+                    <h3 class="font-montserrat text-xl font-bold text-primary dark:text-dark-primary mb-2">{{ professor.nome }}</h3>
+                    <p class="text-charcoal dark:text-dark-charcoal mb-1">{{ professor.materia }}</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">{{ professor.instituicao }}</p>
+
+                    <!-- Avaliação -->
+                    <div class="flex items-center">
+                        <div class="flex text-yellow-400 text-sm">
                             {% for i in "12345" %}
                                 {% if professor.avaliacao_geral >= i|add:0 %}
                                     <span>★</span>
@@ -91,50 +114,14 @@
                                 {% endif %}
                             {% endfor %}
                         </div>
-                        <span class="ml-3 text-2xl font-bold text-primary dark:text-dark-primary">{{ professor.avaliacao_geral|floatformat:1 }}</span>
-                        <span class="ml-2 text-charcoal dark:text-dark-charcoal">({{ professor.total_avaliacoes }} avaliações)</span>
+                        <span class="ml-2 font-semibold text-primary dark:text-dark-primary">{{ professor.avaliacao_geral|floatformat:1 }}</span>
+                        <span class="ml-1 text-sm text-gray-500 dark:text-gray-400">({{ professor.total_avaliacoes }})</span>
                     </div>
                 </div>
-            </div>
-
-            <!-- Seção de Avaliações -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Coluna de Ações -->
-                <div class="lg:col-span-1">
-                    <h3 class="font-montserrat text-xl font-semibold text-primary dark:text-dark-primary mb-4">Ações</h3>
-                    <button class="w-full bg-secondary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center mb-4">
-                        <i data-feather="star" class="w-5 h-5 mr-2"></i> Avaliar Professor
-                    </button>
-                    <button class="w-full bg-primary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center">
-                        <i data-feather="message-square" class="w-5 h-5 mr-2"></i> Enviar Mensagem (Simulado)
-                    </button>
-                </div>
-
-                <!-- Coluna de Comentários -->
-                <div class="lg:col-span-2">
-                    <h3 class="font-montserrat text-xl font-semibold text-primary dark:text-dark-primary mb-4">Comentários Anônimos</h3>
-                    
-                    <div id="comentarios-list" class="space-y-4">
-                        {% for comentario in professor.comentarios.all %}
-                        <div class="p-4 rounded-lg shadow-sm {% if comentario.tipo == 'positivo' %}bg-success bg-opacity-10 dark:bg-success dark:bg-opacity-20{% else %}bg-error bg-opacity-10 dark:bg-error dark:bg-opacity-20{% endif %}">
-                            <div class="flex items-center mb-2">
-                                {% if comentario.tipo == 'positivo' %}
-                                    <i data-feather="thumbs-up" class="w-5 h-5 mr-2 text-success"></i>
-                                    <span class="font-semibold text-success">Comentário Positivo</span>
-                                {% else %}
-                                    <i data-feather="thumbs-down" class="w-5 h-5 mr-2 text-error"></i>
-                                    <span class="font-semibold text-error">Comentário Negativo</span>
-                                {% endif %}
-                            </div>
-                            <p class="text-charcoal dark:text-dark-text">{{ comentario.texto }}</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Anônimo</p>
-                        </div>
-                        {% empty %}
-                        <p class="text-center text-charcoal dark:text-dark-charcoal">Nenhum comentário disponível.</p>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+            </a>
+            {% empty %}
+            <p class="text-center text-charcoal dark:text-dark-charcoal col-span-full">Nenhum professor encontrado.</p>
+            {% endfor %}
         </div>
     </main>
 
@@ -194,6 +181,18 @@
             document.documentElement.classList.add('dark');
         }
         feather.replace();
+
+        // Busca local (filtragem no frontend apenas para UX)
+        const searchInput = document.getElementById('search-prof');
+        const cards = document.querySelectorAll('#professores-grid > a');
+        
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        });
     </script>
 </body>
 </html>
