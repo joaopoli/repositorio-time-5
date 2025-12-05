@@ -11,7 +11,11 @@ urlpatterns = [
     # URLs da API REST
     path('', include(router.urls)),
     
-    # URLs para JSON simples (sem REST framework)
-    path('api/professores-list/', views.professores_list, name='professores-list'),
-    path('api/professor/<str:id_slug>/', views.professor_detail, name='professor-detail'),
+    # URLs para renderizar templates HTML (com dados do Django)
+    path('', views.professores_list, name='professores-list'),
+    path('<str:id_slug>/', views.professor_detail, name='professor-detail'),
+    
+    # URLs para JSON simples (API)
+    path('api/professores-list/', views.professores_list_api, name='professores-list-api'),
+    path('api/professor/<str:id_slug>/', views.professor_detail_api, name='professor-detail-api'),
 ]

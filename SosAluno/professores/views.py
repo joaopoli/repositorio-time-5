@@ -7,7 +7,21 @@ from .serializers import ProfessorSerializer, ComentarioSerializer
 
 
 def professores_list(request):
-    """View para listar todos os professores em formato JSON."""
+    """View para listar todos os professores (renderiza template HTML)."""
+    professores = Professor.objects.all().prefetch_related('comentarios')
+    context = {'professores': professores}
+    return render(request, 'professores/professores_list.html', context)
+
+
+def professor_detail(request, id_slug):
+    """View para obter os detalhes de um professor específico (renderiza template HTML)."""
+    professor = get_object_or_404(Professor, id_slug=id_slug)
+    context = {'professor': professor}
+    return render(request, 'professores/professor_detail.html', context)
+
+
+def professores_list_api(request):
+    """View para listar todos os professores em formato JSON (API)."""
     professores = Professor.objects.all().prefetch_related('comentarios')
     data = []
     
@@ -33,8 +47,8 @@ def professores_list(request):
     return JsonResponse(data, safe=False)
 
 
-def professor_detail(request, id_slug):
-    """View para obter os detalhes de um professor específico em formato JSON."""
+def professor_detail_api(request, id_slug):
+    """View para obter os detalhes de um professor específico em formato JSON (API)."""
     professor = get_object_or_404(Professor, id_slug=id_slug)
     
     data = {

@@ -1,0 +1,33 @@
+/* Estilos específicos para a página de professores */
+
+/* Efeito de hover nos cartões de professores */
+.transform.hover\:scale-105:hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Garante que as imagens dos professores cobrem bem o espaço */
+.bg-gradient-to-br img {
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Estilo para o campo de busca */
+#search-prof {
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+#search-prof:focus {
+    box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.1);
+}
+
+/* Modo escuro para o campo de busca */
+.dark #search-prof {
+    background-color: #1E1E1E;
+    border-color: #404040;
+    color: #FFFFFF;
+}
+
+.dark #search-prof::placeholder {
+    color: #888888;
+}
