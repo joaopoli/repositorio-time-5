@@ -208,12 +208,22 @@
             // Simulação: Se a busca for por "Alexandre Meslin" ou algo similar,
             // redireciona para a página do professor com o ID do easter egg.
             // Em um sistema real, esta lógica seria no backend.
-            if (query.includes('alexandre') || query.includes('meslin') || query.includes('professor')) {
-                window.location.href = 'professor.html?id=alexandre-meslin';
+            // Simulação de busca: Em um sistema real, faria uma busca no banco de dados.
+            // Aqui, simulamos a busca por nome e redirecionamos para o ID correspondente.
+            let professorId = null;
+            if (query.includes('alexandre') || query.includes('meslin')) {
+                professorId = 'alexandre-meslin';
+            } else if (query.includes('ana') || query.includes('silva')) {
+                professorId = 'ana-silva';
+            } else if (query.includes('carlos') || query.includes('rodrigues')) {
+                professorId = 'carlos-rodrigues';
+            }
+
+            if (professorId) {
+                window.location.href = `professor.html?id=${professorId}`;
             } else {
-                // Para qualquer outra busca, redireciona para a página do professor padrão (Alexandre Meslin)
-                // para demonstrar a funcionalidade da página criada.
-                window.location.href = 'professor.html?id=alexandre-meslin';
+                // Se não encontrar, redireciona para a página de listagem de professores
+                window.location.href = 'professores.html';
             }
         }
 
