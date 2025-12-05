@@ -175,9 +175,9 @@
 
         // --- Lógica para carregar dados do professor ---
         async function carregarProfessor() {
-            // Em um ambiente real, o ID viria da URL (ex: ?id=alexandre-meslin)
-            // Para este protótipo estático, vamos usar o ID do easter egg por padrão.
-            const professorId = 'alexandre-meslin'; 
+            // Lê o ID do professor da URL (ex: ?id=alexandre-meslin)
+            const urlParams = new URLSearchParams(window.location.search);
+            const professorId = urlParams.get('id') || 'alexandre-meslin'; // Usa o ID da URL ou o padrão (Alexandre Meslin) 
 
             try {
                 // Simula a busca de dados no JSON (em um ambiente real, seria uma chamada de API)
