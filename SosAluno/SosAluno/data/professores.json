@@ -1,0 +1,63 @@
+[
+  {
+    "id": "alexandre-meslin",
+    "nome": "Alexandre Meslin",
+    "foto": "/img/prof_alexandre.jpg",
+    "instituicao": "PUC-Rio",
+    "materia": "Projeto de Software",
+    "avaliacao_geral": 4.8,
+    "total_avaliacoes": 95,
+    "comentarios": [
+      {
+        "tipo": "positivo",
+        "texto": "Melhor professor de Projeto de Software! As aulas são super práticas e ele realmente se importa com o aprendizado dos alunos."
+      },
+      {
+        "tipo": "positivo",
+        "texto": "O Meslin é um mestre em simplificar conceitos complexos. O projeto final foi desafiador, mas muito gratificante."
+      },
+      {
+        "tipo": "negativo",
+        "texto": "A matéria é ótima, mas a correção das provas é um pouco rigorosa demais. Às vezes, sinto falta de um feedback mais detalhado."
+      }
+    ]
+  },
+  {
+    "id": "ana-silva",
+    "nome": "Ana Silva",
+    "foto": "/img/prof_ana.jpg",
+    "instituicao": "UFRJ",
+    "materia": "Cálculo I",
+    "avaliacao_geral": 3.5,
+    "total_avaliacoes": 120,
+    "comentarios": [
+      {
+        "tipo": "positivo",
+        "texto": "Explica muito bem a teoria. As listas de exercícios ajudam bastante a fixar o conteúdo."
+      },
+      {
+        "tipo": "negativo",
+        "texto": "As aulas são um pouco monótonas e a professora não é muito acessível fora do horário de aula."
+      }
+    ]
+  },
+  {
+    "id": "carlos-rodrigues",
+    "nome": "Carlos Rodrigues",
+    "foto": "/img/prof_carlos.jpg",
+    "instituicao": "USP",
+    "materia": "Física Moderna",
+    "avaliacao_geral": 4.1,
+    "total_avaliacoes": 78,
+    "comentarios": [
+      {
+        "tipo": "positivo",
+        "texto": "Muito didático e apaixonado pelo que ensina. As demonstrações em aula são incríveis."
+      },
+      {
+        "tipo": "negativo",
+        "texto": "O ritmo é muito acelerado. Quem não tem base em física sofre um pouco para acompanhar."
+      }
+    ]
+  }
+]

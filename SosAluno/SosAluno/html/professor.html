@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Aluno - Perfil do Professor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles_css.css">
+    <link rel="stylesheet" href="../css/professor.css"> <!-- Novo CSS para a página do professor -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1D3557',
+                        secondary: '#00B4D8',
+                        background: '#F8F9FA',
+                        success: '#52B788',
+                        error: '#E63946',
+                        charcoal: '#343A40',
+                        dark: {
+                            primary: '#00B4D8',
+                            secondary: '#1D3557',
+                            background: '#121212',
+                            card: '#1E1E1E',
+                            text: '#FFFFFF',
+                            charcoal: '#B0B0B0',
+                        }
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        card: '16px',
+                    },
+                    boxShadow: {
+                        card: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col dark:bg-dark-background dark:text-dark-text">
+    <!-- Header (Copiado de index.html) -->
+    <header class="bg-primary text-white sticky top-0 z-50 shadow-md dark:bg-dark-card">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 hover:opacity-80 transition">
+                <i data-feather="book-open" class="w-8 h-8 text-secondary"></i>
+                <h1 class="font-montserrat text-2xl font-bold">SOS Aluno</h1>
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <!-- Navigation links removed -->
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <i data-feather="sun" class="hidden dark:block w-5 h-5"></i>
+                    <i data-feather="moon" class="block dark:hidden w-5 h-5"></i>
+                </button>
+                <a href="login.html" class="hover:text-secondary transition">Login</a>
+                <a href="cadastro.html" class="bg-secondary hover:bg-opacity-90 px-4 py-2 rounded-lg font-medium transition">Cadastrar-se</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-12">
+        <div id="professor-profile" class="bg-white dark:bg-dark-card p-8 rounded-card shadow-card">
+            <!-- Profile Header -->
+            <div class="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 border-b pb-6 mb-6">
+                <img id="prof-foto" src="/img/prof_alexandre.jpg" alt="Foto do Professor" class="w-32 h-32 rounded-full object-cover border-4 border-secondary">
+                <div class="text-center md:text-left">
+                    <h2 id="prof-nome" class="font-montserrat text-3xl font-bold text-primary dark:text-dark-primary">Alexandre Meslin</h2>
+                    <p id="prof-materia" class="text-xl text-charcoal dark:text-dark-charcoal mt-1">Projeto de Software</p>
+                    <p id="prof-instituicao" class="text-lg text-gray-500 dark:text-gray-400 mt-1">PUC-Rio</p>
+                    
+                    <!-- Avaliação Geral -->
+                    <div class="flex items-center justify-center md:justify-start mt-4">
+                        <div id="prof-estrelas" class="flex text-yellow-400 text-2xl">
+                            <!-- Estrelas serão preenchidas via JS -->
+                        </div>
+                        <span id="prof-avaliacao-geral" class="ml-3 text-2xl font-bold text-primary dark:text-dark-primary">4.8</span>
+                        <span id="prof-total-avaliacoes" class="ml-2 text-charcoal dark:text-dark-charcoal">(95 avaliações)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Avaliações -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Coluna de Ações -->
+                <div class="lg:col-span-1">
+                    <h3 class="font-montserrat text-xl font-semibold text-primary dark:text-dark-primary mb-4">Ações</h3>
+                    <button class="w-full bg-secondary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center mb-4">
+                        <i data-feather="star" class="w-5 h-5 mr-2"></i> Avaliar Professor
+                    </button>
+                    <button class="w-full bg-primary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center">
+                        <i data-feather="message-square" class="w-5 h-5 mr-2"></i> Enviar Mensagem (Simulado)
+                    </button>
+                </div>
+
+                <!-- Coluna de Comentários -->
+                <div class="lg:col-span-2">
+                    <h3 class="font-montserrat text-xl font-semibold text-primary dark:text-dark-primary mb-4">Comentários Anônimos</h3>
+                    
+                    <div id="comentarios-list" class="space-y-4">
+                        <!-- Comentários serão preenchidos via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Copiado de index.html) -->
+    <footer class="bg-primary text-white py-12 dark:bg-dark-card mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i data-feather="book-open" class="w-6 h-6 text-secondary"></i>
+                        <h3 class="font-montserrat text-xl font-bold">SOS Aluno</h3>
+                    </div>
+                    <p class="text-white text-opacity-80">Transparência e apoio para sua jornada universitária.</p>
+                </div>
+                <div>
+                    <h4 class="font-montserrat font-semibold mb-4">Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-secondary transition">Início</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Sobre</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-montserrat font-semibold mb-4">Institucional</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-secondary transition">Sobre</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-montserrat font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-secondary transition">Termos de uso</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">Política de privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white border-opacity-20 mt-8 pt-8 text-center text-white text-opacity-60">
+                <p>© 2023 SOS Aluno. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+        
+        // Dark mode toggle (Copiado de index.html)
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+            feather.replace();
+        });
+
+        // Check for saved theme preference (Copiado de index.html)
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+        feather.replace();
+
+        // --- Lógica para carregar dados do professor ---
+        async function carregarProfessor() {
+            // Em um ambiente real, o ID viria da URL (ex: ?id=alexandre-meslin)
+            // Para este protótipo estático, vamos usar o ID do easter egg por padrão.
+            const professorId = 'alexandre-meslin'; 
+
+            try {
+                // Simula a busca de dados no JSON (em um ambiente real, seria uma chamada de API)
+                const response = await fetch('../data/professores.json');
+                const professores = await response.json();
+                const professor = professores.find(p => p.id === professorId);
+
+                if (!professor) {
+                    document.getElementById('professor-profile').innerHTML = '<p class="text-center text-error text-xl">Professor não encontrado.</p>';
+                    return;
+                }
+
+                // Atualiza o perfil
+                document.getElementById('prof-foto').src = professor.foto;
+                document.getElementById('prof-nome').textContent = professor.nome;
+                document.getElementById('prof-materia').textContent = professor.materia;
+                document.getElementById('prof-instituicao').textContent = professor.instituicao;
+                document.getElementById('prof-avaliacao-geral').textContent = professor.avaliacao_geral.toFixed(1);
+                document.getElementById('prof-total-avaliacoes').textContent = `(${professor.total_avaliacoes} avaliações)`;
+
+                // Renderiza as estrelas
+                const estrelasContainer = document.getElementById('prof-estrelas');
+                estrelasContainer.innerHTML = '';
+                const avaliacao = professor.avaliacao_geral;
+                for (let i = 1; i <= 5; i++) {
+                    let icon = '';
+                    if (avaliacao >= i) {
+                        icon = 'star'; // Estrela cheia
+                    } else if (avaliacao > i - 1 && avaliacao < i) {
+                        icon = 'star-half'; // Meia estrela (simulado, feather-icons não tem half-star, usarei star-on/star-off no CSS)
+                        // Para simplificar, vou usar apenas 'star' e estilizar com CSS para simular a cor
+                        icon = 'star'; 
+                    } else {
+                        icon = 'star'; // Estrela vazia (simulado, usarei uma cor mais clara no CSS)
+                    }
+                    estrelasContainer.innerHTML += `<i data-feather="${icon}" class="w-6 h-6 ${avaliacao >= i ? 'text-yellow-400 fill-current' : 'text-gray-300'}"></i>`;
+                }
+                feather.replace(); // Recarrega os ícones
+
+                // Renderiza os comentários
+                const comentariosList = document.getElementById('comentarios-list');
+                comentariosList.innerHTML = '';
+                professor.comentarios.forEach(comentario => {
+                    const isPositive = comentario.tipo === 'positivo';
+                    const icon = isPositive ? 'thumbs-up' : 'thumbs-down';
+                    const color = isPositive ? 'success' : 'error';
+                    
+                    const comentarioHtml = `
+                        <div class="p-4 rounded-lg shadow-sm ${isPositive ? 'bg-success bg-opacity-10 dark:bg-success dark:bg-opacity-20' : 'bg-error bg-opacity-10 dark:bg-error dark:bg-opacity-20'}">
+                            <div class="flex items-center mb-2">
+                                <i data-feather="${icon}" class="w-5 h-5 mr-2 text-${color}"></i>
+                                <span class="font-semibold text-${color}">${isPositive ? 'Comentário Positivo' : 'Comentário Negativo'}</span>
+                            </div>
+                            <p class="text-charcoal dark:text-dark-text">${comentario.texto}</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Anônimo</p>
+                        </div>
+                    `;
+                    comentariosList.innerHTML += comentarioHtml;
+                });
+                feather.replace(); // Recarrega os ícones
+                
+            } catch (error) {
+                console.error('Erro ao carregar dados do professor:', error);
+                document.getElementById('professor-profile').innerHTML = '<p class="text-center text-error text-xl">Erro ao carregar dados. Verifique o console.</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', carregarProfessor);
+    </script>
+</body>
+</html>
