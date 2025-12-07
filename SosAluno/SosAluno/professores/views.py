@@ -47,3 +47,23 @@ def login_view(request):
 def cadastro_view(request):
     """View para a página de cadastro (cadastro.html)."""
     return render(request, 'html/cadastro.html')
+
+from rest_framework import viewsets
+from .models import Professor, Comentario
+from .serializers import ProfessorSerializer, ComentarioSerializer
+
+# --- ViewSets para API REST ---
+
+class ProfessorViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Professor.objects.all()
+    serializer_class = ProfessorSerializer
+
+class ComentarioViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Comentario.objects.all()
+    serializer_class = ComentarioSerializer
