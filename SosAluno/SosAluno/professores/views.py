@@ -88,3 +88,29 @@ class ComentarioViewSet(viewsets.ModelViewSet):
 def index(request):
     """View para a página inicial (index.html)."""
     return render(request, 'index.html')
+
+
+# --- Views para Instituições ---
+
+def instituicoes_list(request):
+    """View para listar todas as instituições (renderiza template HTML)."""
+    from .models import Instituicao
+    instituicoes = Instituicao.objects.all().prefetch_related('cursos', 'comentarios')
+    context = {'instituicoes': instituicoes}
+    return render(request, 'instituicoes/instituicoes_list.html', context)
+
+
+def instituicao_detail(request, id_slug):
+    """View para obter os detalhes de uma instituição específica (renderiza template HTML)."""
+    from .models import Instituicao
+    instituicao = get_object_or_404(Instituicao, id_slug=id_slug)
+    context = {'instituicao': instituicao}
+    return render(request, 'instituicoes/instituicao_detail.html', context)
+
+
+def curso_detail(request, id_slug):
+    """View para obter os detalhes de um curso específico (renderiza template HTML)."""
+    from .models import Curso
+    curso = get_object_or_404(Curso, id_slug=id_slug)
+    context = {'curso': curso}
+    return render(request, 'instituicoes/curso_detail.html', context)

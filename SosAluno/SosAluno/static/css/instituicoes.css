@@ -1,0 +1,8 @@
+/* Estilos específicos para a página de instituições */
+.instituicao-card {
+    transition: all 0.3s ease;
+}
+
+.instituicao-card:hover {
+    transform: translateY(-5px);
+}

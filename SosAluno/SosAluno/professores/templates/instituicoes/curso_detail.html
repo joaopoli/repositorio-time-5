@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ curso.nome }} - SOS Aluno</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="min-h-screen">
+    <header class="bg-primary text-white py-4">
+        <div class="container mx-auto px-4">
+            <a href="{% url 'index' %}"><h1 class="text-2xl font-bold">SOS Aluno</h1></a>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 py-12">
+        <h2 class="text-4xl font-bold mb-4">{{ curso.nome }}</h2>
+        <p class="mb-4">{{ curso.descricao }}</p>
+        <p><strong>Instituição:</strong> {{ curso.instituicao.nome }}</p>
+        <p><strong>Área:</strong> {{ curso.area }}</p>
+        <p><strong>Duração:</strong> {{ curso.duracao }}</p>
+        <p><strong>Avaliação:</strong> {{ curso.avaliacao_geral }}/5</p>
+    </main>
+    <script>feather.replace();</script>
+</body>
+</html>

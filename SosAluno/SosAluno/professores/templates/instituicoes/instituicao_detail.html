@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ instituicao.nome }} - SOS Aluno</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="{% static 'css/styles_css.css' %}">
+</head>
+<body class="min-h-screen dark:bg-dark-background dark:text-dark-text">
+    <header class="bg-primary text-white py-4">
+        <div class="container mx-auto px-4">
+            <a href="{% url 'index' %}" class="flex items-center space-x-2">
+                <i data-feather="book-open" class="w-8 h-8"></i>
+                <h1 class="text-2xl font-bold">SOS Aluno</h1>
+            </a>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 py-12">
+        <h2 class="text-4xl font-bold mb-4">{{ instituicao.nome }}</h2>
+        <p class="mb-4">{{ instituicao.descricao }}</p>
+        <p><strong>Localização:</strong> {{ instituicao.localizacao }}</p>
+        <p><strong>Website:</strong> <a href="{{ instituicao.website }}" target="_blank">{{ instituicao.website }}</a></p>
+        
+        <h3 class="text-2xl font-bold mt-8 mb-4">Cursos Oferecidos</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {% for curso in instituicao.cursos.all %}
+            <a href="{% url 'curso-detail' curso.id_slug %}" class="bg-white p-4 rounded shadow hover:shadow-lg">
+                <h4 class="font-bold">{{ curso.nome }}</h4>
+                <p>{{ curso.area }} - {{ curso.duracao }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </main>
+    <script>feather.replace();</script>
+</body>
+</html>

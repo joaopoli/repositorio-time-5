@@ -18,4 +18,9 @@ urlpatterns = [
     # URLs para JSON simples (API)
     path('api/professores-list/', views.professores_list_api, name='professores-list-api'),
     path('api/professor/<str:id_slug>/', views.professor_detail_api, name='professor-detail-api'),
+    
+    # URLs para Instituições
+    path('instituicoes/list/', views.instituicoes_list, name='instituicoes-list'),
+    path('instituicoes/<str:id_slug>/', views.instituicao_detail, name='instituicao-detail'),
+    path('cursos/<str:id_slug>/', views.curso_detail, name='curso-detail'),
 ]
