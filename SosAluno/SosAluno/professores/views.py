@@ -40,14 +40,6 @@ def index(request):
 
 # --- Views para Autenticação ---
 
-def login_view(request):
-    """View para a página de login (login.html)."""
-    return render(request, 'html/login.html')
-
-def cadastro_view(request):
-    """View para a página de cadastro (cadastro.html)."""
-    return render(request, 'html/cadastro.html')
-
 from rest_framework import viewsets
 from .models import Professor, Comentario
 from .serializers import ProfessorSerializer, ComentarioSerializer
