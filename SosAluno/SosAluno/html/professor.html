@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/styles_css.css">
-    <link rel="stylesheet" href="../css/professor.css"> <!-- Novo CSS para a página do professor -->
+    <link rel="stylesheet" href="/static/css/styles_css.css">
+    <link rel="stylesheet" href="/static/css/professor.css"> <!-- Novo CSS para a página do professor -->
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -51,7 +51,7 @@
     <!-- Header (Copiado de index.html) -->
     <header class="bg-primary text-white sticky top-0 z-50 shadow-md dark:bg-dark-card">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-2 hover:opacity-80 transition">
+            <a href="/" class="flex items-center space-x-2 hover:opacity-80 transition">
                 <i data-feather="book-open" class="w-8 h-8 text-secondary"></i>
                 <h1 class="font-montserrat text-2xl font-bold">SOS Aluno</h1>
             </a>
@@ -63,8 +63,15 @@
                     <i data-feather="sun" class="hidden dark:block w-5 h-5"></i>
                     <i data-feather="moon" class="block dark:hidden w-5 h-5"></i>
                 </button>
-                <a href="login.html" class="hover:text-secondary transition">Login</a>
-                <a href="cadastro.html" class="bg-secondary hover:bg-opacity-90 px-4 py-2 rounded-lg font-medium transition">Cadastrar-se</a>
+                {% if is_authenticated %}
+                    <div class="flex items-center space-x-3">
+                        <span class="text-white font-medium">{{ user.get_full_name|default:user.username }}</span>
+                        <a href="/logout/" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition">Sair</a>
+                    </div>
+                {% else %}
+                    <a href="/login/" class="hover:text-secondary transition">Login</a>
+                    <a href="/cadastro/" class="bg-secondary hover:bg-opacity-90 px-4 py-2 rounded-lg font-medium transition">Cadastrar-se</a>
+                {% endif %}
             </div>
         </div>
     </header>
@@ -96,9 +103,9 @@
                 <!-- Coluna de Ações -->
                 <div class="lg:col-span-1">
                     <h3 class="font-montserrat text-xl font-semibold text-primary dark:text-dark-primary mb-4">Ações</h3>
-                    <button class="w-full bg-secondary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center mb-4">
+                    <a href="" class="w-full bg-secondary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center mb-4" id="avaliar-btn">
                         <i data-feather="star" class="w-5 h-5 mr-2"></i> Avaliar Professor
-                    </button>
+                    </a>
                     <button class="w-full bg-primary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center">
                         <i data-feather="message-square" class="w-5 h-5 mr-2"></i> Enviar Mensagem (Simulado)
                     </button>
@@ -175,9 +182,10 @@
 
         // --- Lógica para carregar dados do professor ---
         async function carregarProfessor() {
-            // Lê o ID do professor da URL (ex: ?id=alexandre-meslin)
-            const urlParams = new URLSearchParams(window.location.search);
-            const professorId = urlParams.get('id') || 'alexandre-meslin'; // Usa o ID da URL ou o padrão (Alexandre Meslin)
+            // Extrai o ID do professor da URL (ex: /professor/alexandre-meslin/)
+            const pathname = window.location.pathname;
+            const pathParts = pathname.split('/').filter(p => p);
+            const professorId = pathParts.length >= 2 ? pathParts[1] : 'alexandre-meslin'; // Usa o ID da URL ou o padrão (Alexandre Meslin)
             console.log('ID do professor da URL:', professorId); // Debug 
 
             try {
@@ -242,6 +250,25 @@
                     comentariosList.innerHTML += comentarioHtml;
                 });
                 feather.replace(); // Recarrega os ícones
+
+                // Adiciona evento ao botão de avaliar
+                const avaliarBtn = document.getElementById('avaliar-btn');
+                // Extrai o ID do professor (é o segundo elemento do caminho)
+                const professorIdForButton = pathParts[1] || 'alexandre-meslin';
+                
+                // Tenta encontrar o ID do professor no banco de dados
+                fetch(`/professores/api/professor/${professorIdForButton}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // A API retorna um objeto com 'id' ou você pode usar o nome como referência
+                        // Aqui vamos assumir que você quer buscar o professor por ID no formulário
+                        // Para isso, precisamos fazer uma busca adicional ou armazenar o ID
+                        avaliarBtn.href = `/avaliar/?professor_id=${professor.id || ''}`;
+                    })
+                    .catch(error => {
+                        console.log('Erro ao buscar ID do professor para avaliação:', error);
+                        avaliarBtn.href = '/avaliar/';
+                    });
                 
             } catch (error) {
                 console.error('Erro ao carregar dados do professor:', error);

@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/static/css/styles_css.css">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -50,7 +50,7 @@
     <!-- Header -->
     <header class="bg-primary text-white sticky top-0 z-50 shadow-md dark:bg-dark-card">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-2 hover:opacity-80 transition">
+            <a href="/" class="flex items-center space-x-2 hover:opacity-80 transition">
                 <i data-feather="book-open" class="w-8 h-8 text-secondary"></i>
                 <h1 class="font-montserrat text-2xl font-bold">SOS Aluno</h1>
             </a>
@@ -62,8 +62,15 @@
                     <i data-feather="sun" class="hidden dark:block w-5 h-5"></i>
                     <i data-feather="moon" class="block dark:hidden w-5 h-5"></i>
                 </button>
-                <a href="login.html" class="hover:text-secondary transition">Login</a>
-                <a href="cadastro.html" class="bg-secondary hover:bg-opacity-90 px-4 py-2 rounded-lg font-medium transition">Cadastrar-se</a>
+                {% if is_authenticated %}
+                    <div class="flex items-center space-x-3">
+                        <span class="text-white font-medium">{{ user.get_full_name|default:user.username }}</span>
+                        <a href="/logout/" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition">Sair</a>
+                    </div>
+                {% else %}
+                    <a href="/login/" class="hover:text-secondary transition">Login</a>
+                    <a href="/cadastro/" class="bg-secondary hover:bg-opacity-90 px-4 py-2 rounded-lg font-medium transition">Cadastrar-se</a>
+                {% endif %}
             </div>
         </div>
     </header>
@@ -94,7 +101,7 @@
 
         <!-- Quick Access Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-5xl">
-            <a href="professores.html" class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer hover:opacity-80">
+            <a href="/professores-page/" class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer hover:opacity-80">
                 <div class="flex items-center mb-4">
                     <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
                         <i data-feather="users" class="w-6 h-6 text-primary"></i>
@@ -103,7 +110,7 @@
                 </div>
                 <p class="text-charcoal text-opacity-80">Explore avaliações e informações sobre professores.</p>
             </a>
-            <div class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer">
+            <a href="/avaliar/" class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer hover:opacity-80">
                 <div class="flex items-center mb-4">
                     <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
                         <i data-feather="edit-3" class="w-6 h-6 text-primary"></i>
@@ -111,7 +118,7 @@
                     <h3 class="font-montserrat text-lg font-semibold text-primary">Avaliar</h3>
                 </div>
                 <p class="text-charcoal text-opacity-80">Compartilhe sua experiência para ajudar outros alunos.</p>
-            </div>
+            </a>
             <div class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer">
                 <div class="flex items-center mb-4">
                     <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
@@ -220,10 +227,10 @@
             }
 
             if (professorId) {
-                window.location.href = `professor.html?id=${professorId}`;
+                window.location.href = `/professor/${professorId}/`;
             } else {
                 // Se não encontrar, redireciona para a página de listagem de professores
-                window.location.href = 'professores.html';
+                window.location.href = '/professores-page/';
             }
         }
 

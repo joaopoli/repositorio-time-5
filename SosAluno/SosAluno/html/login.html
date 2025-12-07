@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/static/css/styles_css.css">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -50,7 +50,7 @@
     <!-- Header -->
     <header class="bg-primary text-white sticky top-0 z-50 shadow-md dark:bg-dark-card">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-2 hover:opacity-80 transition">
+            <a href="/" class="flex items-center space-x-2 hover:opacity-80 transition">
                 <i data-feather="book-open" class="w-8 h-8 text-secondary"></i>
                 <h1 class="font-montserrat text-2xl font-bold">SOS Aluno</h1>
             </a>
@@ -59,6 +59,12 @@
                     <i data-feather="sun" class="hidden dark:block w-5 h-5"></i>
                     <i data-feather="moon" class="block dark:hidden w-5 h-5"></i>
                 </button>
+                {% if is_authenticated %}
+                    <div class="flex items-center space-x-3">
+                        <span class="text-white font-medium">{{ user.get_full_name|default:user.username }}</span>
+                        <a href="/logout/" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition">Sair</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </header>
@@ -106,7 +112,7 @@
                 </button>
 
                 <div class="text-center text-charcoal dark:text-dark-charcoal">
-                    <p>Ainda não tem uma conta? <a href="cadastro.html" class="text-secondary font-medium hover:underline">Cadastre-se agora</a></p>
+                    <p>Ainda não tem uma conta? <a href="/cadastro/" class="text-secondary font-medium hover:underline">Cadastre-se agora</a></p>
                 </div>
             </form>
         </div>
@@ -139,12 +145,67 @@
 
         // Form submission
         const form = document.querySelector('form');
-        form.addEventListener('submit', (e) => {
+        const errorMessage = document.getElementById('error-message');
+        
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            // Simulate error for demo purposes
-            document.getElementById('error-message').classList.remove('hidden');
-            // In real implementation, you would validate and submit here
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Ocultar mensagem de erro anterior
+            errorMessage.classList.add('hidden');
+            
+            // Obter CSRF token
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || 
+                             document.querySelector('input[name=csrfmiddlewaretoken]')?.value ||
+                             getCookie('csrftoken');
+            
+            try {
+                const response = await fetch('/login/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Redirecionar para a página inicial
+                    window.location.href = data.redirect || '/';
+                } else {
+                    // Mostrar mensagem de erro
+                    errorMessage.textContent = data.message || 'Erro ao fazer login';
+                    errorMessage.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                errorMessage.textContent = 'Erro ao processar login';
+                errorMessage.classList.remove('hidden');
+            }
         });
+        
+        // Função para obter cookie
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
     </script>
 </body>
 </html>

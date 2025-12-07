@@ -1,101 +1,125 @@
 from django.core.management.base import BaseCommand
+from django.utils.text import slugify
 from professores.models import Professor, Comentario
+import csv
+import random
+from pathlib import Path
 
 
 class Command(BaseCommand):
-    help = 'Popula a base de dados com professores simulados'
+    help = 'Popula a base de dados com professores a partir do arquivo CSV'
 
     def handle(self, *args, **options):
-        # Dados dos professores
-        professores_data = [
-            {
-                'id_slug': 'alexandre-meslin',
-                'nome': 'Alexandre Meslin',
-                'instituicao': 'PUC-Rio',
-                'materia': 'Projeto de Software',
-                'avaliacao_geral': 4.8,
-                'total_avaliacoes': 95,
-                'comentarios': [
-                    {
-                        'tipo': 'positivo',
-                        'texto': 'Melhor professor de Projeto de Software! As aulas são super práticas e ele realmente se importa com o aprendizado dos alunos.'
-                    },
-                    {
-                        'tipo': 'positivo',
-                        'texto': 'O Meslin é um mestre em simplificar conceitos complexos. O projeto final foi desafiador, mas muito gratificante.'
-                    },
-                    {
-                        'tipo': 'negativo',
-                        'texto': 'A matéria é ótima, mas a correção das provas é um pouco rigorosa demais. Às vezes, sinto falta de um feedback mais detalhado.'
-                    }
-                ]
-            },
-            {
-                'id_slug': 'ana-silva',
-                'nome': 'Ana Silva',
-                'instituicao': 'UFRJ',
-                'materia': 'Cálculo I',
-                'avaliacao_geral': 3.5,
-                'total_avaliacoes': 120,
-                'comentarios': [
-                    {
-                        'tipo': 'positivo',
-                        'texto': 'Explica muito bem a teoria. As listas de exercícios ajudam bastante a fixar o conteúdo.'
-                    },
-                    {
-                        'tipo': 'negativo',
-                        'texto': 'As aulas são um pouco monótonas e a professora não é muito acessível fora do horário de aula.'
-                    }
-                ]
-            },
-            {
-                'id_slug': 'carlos-rodrigues',
-                'nome': 'Carlos Rodrigues',
-                'instituicao': 'USP',
-                'materia': 'Física Moderna',
-                'avaliacao_geral': 4.1,
-                'total_avaliacoes': 78,
-                'comentarios': [
-                    {
-                        'tipo': 'positivo',
-                        'texto': 'Muito didático e apaixonado pelo que ensina. As demonstrações em aula são incríveis.'
-                    },
-                    {
-                        'tipo': 'negativo',
-                        'texto': 'O ritmo é muito acelerado. Quem não tem base em física sofre um pouco para acompanhar.'
-                    }
-                ]
-            }
+        # Caminho para o arquivo CSV
+        csv_path = Path(__file__).resolve().parent.parent.parent.parent.parent / 'ENG4021' / 'professores_20.csv'
+        
+        if not csv_path.exists():
+            self.stdout.write(self.style.ERROR(f'Arquivo CSV não encontrado em {csv_path}'))
+            return
+        
+        # Comentários de exemplo para adicionar aos professores
+        comentarios_positivos = [
+            'Excelente professor! As aulas são muito claras e didáticas.',
+            'Muito dedicado e preocupado com o aprendizado dos alunos.',
+            'As avaliações são justas e o feedback é construtivo.',
+            'Aulas dinâmicas e envolventes. Recomendo muito!',
+            'Professor com amplo conhecimento e muito acessível.',
+            'Material de aula bem preparado e de fácil compreensão.',
+            'Muito paciente em esclarecer dúvidas.',
+            'Excelente didática! Melhor professor que já tive.',
         ]
-
+        
+        comentarios_negativos = [
+            'Poderia melhorar a estrutura das aulas.',
+            'Às vezes falta clareza nos explicações.',
+            'Avaliações muito rigorosas.',
+            'Pouco acessível fora do horário de aula.',
+            'Ritmo das aulas é um pouco acelerado.',
+            'Falta mais interação em sala de aula.',
+        ]
+        
         # Limpar dados existentes (opcional)
         Professor.objects.all().delete()
         self.stdout.write(self.style.WARNING('Professores existentes foram deletados.'))
-
-        # Criar professores e seus comentários
-        for prof_data in professores_data:
-            comentarios_data = prof_data.pop('comentarios')
+        
+        professores_criados = 0
+        
+        # Ler e processar o arquivo CSV
+        try:
+            with open(csv_path, 'r', encoding='utf-8') as csvfile:
+                reader = csv.DictReader(csvfile)
+                
+                for row in reader:
+                    nome = row['Nome'].strip()
+                    materia = row['Materia'].strip()
+                    instituicao = row['Faculdade'].strip()
+                    
+                    # Gerar ID slug a partir do nome
+                    id_slug = slugify(nome)
+                    
+                    # Gerar valores demonstrativos
+                    avaliacao_geral = round(random.uniform(2.5, 5.0), 1)
+                    total_avaliacoes = random.randint(15, 150)
+                    
+                    # Criar ou atualizar professor
+                    professor, created = Professor.objects.get_or_create(
+                        id_slug=id_slug,
+                        defaults={
+                            'nome': nome,
+                            'materia': materia,
+                            'instituicao': instituicao,
+                            'avaliacao_geral': avaliacao_geral,
+                            'total_avaliacoes': total_avaliacoes,
+                        }
+                    )
+                    
+                    if created:
+                        self.stdout.write(
+                            self.style.SUCCESS(
+                                f'✓ Professor "{nome}" ({instituicao}) - '
+                                f'Avaliação: {avaliacao_geral}/5.0 ({total_avaliacoes} avaliações)'
+                            )
+                        )
+                        
+                        # Adicionar alguns comentários aleatórios
+                        num_comentarios = random.randint(2, 5)
+                        comentarios_usados = set()  # Rastrear comentários já usados
+                        
+                        for _ in range(num_comentarios):
+                            is_positivo = random.random() > 0.3  # 70% de chance de ser positivo
+                            tipo = 'positivo' if is_positivo else 'negativo'
+                            comentarios = comentarios_positivos if is_positivo else comentarios_negativos
+                            
+                            # Selecionar um comentário que ainda não foi usado
+                            comentario_texto = random.choice(comentarios)
+                            tentativas = 0
+                            while comentario_texto in comentarios_usados and tentativas < 10:
+                                comentario_texto = random.choice(comentarios)
+                                tentativas += 1
+                            
+                            # Se encontrou um comentário único, adicionar
+                            if comentario_texto not in comentarios_usados:
+                                comentarios_usados.add(comentario_texto)
+                                Comentario.objects.create(
+                                    professor=professor,
+                                    tipo=tipo,
+                                    texto=comentario_texto
+                                )
+                        
+                        professores_criados += 1
+                    else:
+                        self.stdout.write(
+                            self.style.WARNING(f'⚠ Professor "{nome}" já existia.')
+                        )
             
-            # Criar professor
-            professor, created = Professor.objects.get_or_create(
-                id_slug=prof_data['id_slug'],
-                defaults=prof_data
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f'\n✓ Sucesso! {professores_criados} professores foram criados/atualizados.'
+                )
             )
             
-            if created:
-                self.stdout.write(self.style.SUCCESS(f'✓ Professor "{professor.nome}" criado com sucesso.'))
-            else:
-                self.stdout.write(self.style.WARNING(f'⚠ Professor "{professor.nome}" já existia.'))
-            
-            # Criar comentários
-            for comentario_data in comentarios_data:
-                comentario, created = Comentario.objects.get_or_create(
-                    professor=professor,
-                    tipo=comentario_data['tipo'],
-                    texto=comentario_data['texto']
-                )
-                
-                if created:
-                    self.stdout.write(f'  └─ Comentário {comentario_data["tipo"]} adicionado.')
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(f'Erro ao processar CSV: {str(e)}'))
+
 
         self.stdout.write(self.style.SUCCESS('\n✓ Base de dados populada com sucesso!'))

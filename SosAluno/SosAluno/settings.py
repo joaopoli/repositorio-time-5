@@ -56,7 +56,7 @@ ROOT_URLCONF = "SosAluno.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "SosAluno" / "html"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

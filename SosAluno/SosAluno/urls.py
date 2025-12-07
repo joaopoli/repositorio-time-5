@@ -19,8 +19,18 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from professores.views import index, professores_page, professor_page, login_page, cadastro_page, logout_user, avaliar_page, salvar_avaliacao
 
 urlpatterns = [
+    path("", index, name="index"),
+    path("professores-page/", professores_page, name="professores-page"),
+    path("professor/", professor_page, name="professor-page"),
+    path("professor/<str:id_slug>/", professor_page, name="professor-page-detail"),
+    path("login/", login_page, name="login-page"),
+    path("cadastro/", cadastro_page, name="cadastro-page"),
+    path("logout/", logout_user, name="logout"),
+    path("avaliar/", avaliar_page, name="avaliar-page"),
+    path("api/avaliacoes/", salvar_avaliacao, name="salvar-avaliacao"),
     path("admin/", admin.site.urls),
     path("professores/", include("professores.urls")),
 ]

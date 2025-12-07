@@ -40,3 +40,21 @@ class Comentario(models.Model):
 
     def __str__(self):
         return f"Comentário ({self.tipo}) sobre {self.professor.nome}"
+
+
+class Avaliacao(models.Model):
+    """Modelo para armazenar avaliações de professores pelos usuários."""
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name='avaliacoes')
+    usuario = models.ForeignKey('auth.User', on_delete=models.CASCADE, null=True, blank=True)
+    nota = models.FloatField(help_text="Nota de 0 a 5")
+    comentario = models.TextField(blank=True, null=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+    atualizado_em = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-criado_em']
+        verbose_name = "Avaliação"
+        verbose_name_plural = "Avaliações"
+
+    def __str__(self):
+        return f"Avaliação ({self.nota}/5) de {self.professor.nome}"
