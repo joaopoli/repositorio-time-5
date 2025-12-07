@@ -87,7 +87,7 @@ class ComentarioViewSet(viewsets.ModelViewSet):
 
 def index(request):
     """View para a página inicial (index.html)."""
-    return render(request, 'index.html')
+    return render(request, 'html/index.html')
 
 
 # --- Views para Instituições ---
