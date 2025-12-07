@@ -114,3 +114,13 @@ def curso_detail(request, id_slug):
     curso = get_object_or_404(Curso, id_slug=id_slug)
     context = {'curso': curso}
     return render(request, 'instituicoes/curso_detail.html', context)
+
+# --- Views para Autenticação ---
+
+def login_view(request):
+    """View para a página de login (login.html)."""
+    return render(request, 'html/login.html')
+
+def cadastro_view(request):
+    """View para a página de cadastro (cadastro.html)."""
+    return render(request, 'html/cadastro.html')

@@ -50,7 +50,7 @@
     <!-- Header -->
     <header class="bg-primary text-white sticky top-0 z-50 shadow-md dark:bg-dark-card">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-2 hover:opacity-80 transition">
+            <a href="{% url 'index' %}" class="flex items-center space-x-2 hover:opacity-80 transition">
                 <i data-feather="book-open" class="w-8 h-8 text-secondary"></i>
                 <h1 class="font-montserrat text-2xl font-bold">SOS Aluno</h1>
             </a>
@@ -125,7 +125,7 @@
                 </button>
 
                 <div class="text-center text-charcoal dark:text-dark-charcoal">
-                    <p>Já tem conta? <a href="login.html" class="text-secondary font-medium hover:underline">Entrar</a></p>
+                    <p>Já tem conta? <a href="{% url 'login' %}" class="text-secondary font-medium hover:underline">Entrar</a></p>
                 </div>
             </form>
         </div>
