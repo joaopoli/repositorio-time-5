@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{% static 'css/styles_css.css' %}">},{find:
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -50,7 +51,7 @@
     <!-- Header -->
     <header class="bg-primary text-white sticky top-0 z-50 shadow-md dark:bg-dark-card">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-2 hover:opacity-80 transition">
+            <a href="{% url 'index' %}" class="flex items-center space-x-2 hover:opacity-80 transition">
                 <i data-feather="book-open" class="w-8 h-8 text-secondary"></i>
                 <h1 class="font-montserrat text-2xl font-bold">SOS Aluno</h1>
             </a>
