@@ -67,3 +67,20 @@ class ComentarioViewSet(viewsets.ModelViewSet):
     """
     queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
+
+from django.http import JsonResponse
+from .serializers import ProfessorSerializer
+
+# --- Views para JSON simples (API) ---
+
+def professores_list_api(request):
+    """API para listagem de professores em JSON."""
+    professores = Professor.objects.all()
+    serializer = ProfessorSerializer(professores, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+def professor_detail_api(request, id_slug):
+    """API para detalhes de um professor em JSON."""
+    professor = get_object_or_404(Professor, id_slug=id_slug)
+    serializer = ProfessorSerializer(professor)
+    return JsonResponse(serializer.data)
