@@ -202,6 +202,7 @@ def professores_list_api(request):
     
     for prof in professores:
         prof_data = {
+            'db_id': prof.id,
             'id': prof.id_slug,
             'nome': prof.nome,
             'foto': prof.foto.url if prof.foto else '/img/prof_default.jpg',
@@ -227,6 +228,7 @@ def professor_detail_api(request, id_slug):
     professor = get_object_or_404(Professor, id_slug=id_slug)
     
     data = {
+        'db_id': professor.id,
         'id': professor.id_slug,
         'nome': professor.nome,
         'foto': professor.foto.url if professor.foto else '/img/prof_default.jpg',
@@ -261,6 +263,10 @@ class ComentarioViewSet(viewsets.ModelViewSet):
 
 def avaliar_page(request):
     """View para servir a página de avaliação."""
+    # Verificar se usuário está autenticado
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    
     professores = Professor.objects.all()
     context = {
         'user': request.user,
@@ -274,6 +280,13 @@ def avaliar_page(request):
 @csrf_exempt
 def salvar_avaliacao(request):
     """View para salvar uma avaliação de professor."""
+    # Verificar se usuário está autenticado
+    if not request.user.is_authenticated:
+        return JsonResponse({
+            'success': False,
+            'message': 'Você precisa estar logado para avaliar um professor.'
+        }, status=401)
+    
     try:
         data = json.loads(request.body)
         professor_id = data.get('professor_id')

@@ -110,15 +110,28 @@
                 </div>
                 <p class="text-charcoal text-opacity-80">Explore avaliações e informações sobre professores.</p>
             </a>
-            <a href="/avaliar/" class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer hover:opacity-80">
-                <div class="flex items-center mb-4">
-                    <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                        <i data-feather="edit-3" class="w-6 h-6 text-primary"></i>
+            {% if is_authenticated %}
+                <a href="/avaliar/" class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer hover:opacity-80">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                            <i data-feather="edit-3" class="w-6 h-6 text-primary"></i>
+                        </div>
+                        <h3 class="font-montserrat text-lg font-semibold text-primary">Avaliar</h3>
                     </div>
-                    <h3 class="font-montserrat text-lg font-semibold text-primary">Avaliar</h3>
+                    <p class="text-charcoal text-opacity-80">Compartilhe sua experiência para ajudar outros alunos.</p>
+                </a>
+            {% else %}
+                <div class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card opacity-60 cursor-not-allowed" title="Faça login para avaliar">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                            <i data-feather="edit-3" class="w-6 h-6 text-primary"></i>
+                        </div>
+                        <h3 class="font-montserrat text-lg font-semibold text-primary">Avaliar</h3>
+                    </div>
+                    <p class="text-charcoal text-opacity-80">Compartilhe sua experiência para ajudar outros alunos.</p>
+                    <p class="text-sm text-error mt-4 font-medium">Faça login para avaliar</p>
                 </div>
-                <p class="text-charcoal text-opacity-80">Compartilhe sua experiência para ajudar outros alunos.</p>
-            </a>
+            {% endif %}
             <div class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer">
                 <div class="flex items-center mb-4">
                     <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">

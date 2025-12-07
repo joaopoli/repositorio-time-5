@@ -103,9 +103,16 @@
                 <!-- Coluna de Ações -->
                 <div class="lg:col-span-1">
                     <h3 class="font-montserrat text-xl font-semibold text-primary dark:text-dark-primary mb-4">Ações</h3>
-                    <a href="" class="w-full bg-secondary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center mb-4" id="avaliar-btn">
-                        <i data-feather="star" class="w-5 h-5 mr-2"></i> Avaliar Professor
-                    </a>
+                    {% if is_authenticated %}
+                        <a href="" class="w-full bg-secondary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center mb-4" id="avaliar-btn">
+                            <i data-feather="star" class="w-5 h-5 mr-2"></i> Avaliar Professor
+                        </a>
+                    {% else %}
+                        <button class="w-full bg-gray-400 cursor-not-allowed text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center mb-4" disabled title="Faça login para avaliar">
+                            <i data-feather="star" class="w-5 h-5 mr-2"></i> Avaliar Professor
+                        </button>
+                        <p class="text-sm text-error font-medium mb-4 text-center">Faça <a href="/login/" class="underline hover:text-error">login</a> para avaliar</p>
+                    {% endif %}
                     <button class="w-full bg-primary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center">
                         <i data-feather="message-square" class="w-5 h-5 mr-2"></i> Enviar Mensagem (Simulado)
                     </button>
@@ -253,22 +260,7 @@
 
                 // Adiciona evento ao botão de avaliar
                 const avaliarBtn = document.getElementById('avaliar-btn');
-                // Extrai o ID do professor (é o segundo elemento do caminho)
-                const professorIdForButton = pathParts[1] || 'alexandre-meslin';
-                
-                // Tenta encontrar o ID do professor no banco de dados
-                fetch(`/professores/api/professor/${professorIdForButton}/`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // A API retorna um objeto com 'id' ou você pode usar o nome como referência
-                        // Aqui vamos assumir que você quer buscar o professor por ID no formulário
-                        // Para isso, precisamos fazer uma busca adicional ou armazenar o ID
-                        avaliarBtn.href = `/avaliar/?professor_id=${professor.id || ''}`;
-                    })
-                    .catch(error => {
-                        console.log('Erro ao buscar ID do professor para avaliação:', error);
-                        avaliarBtn.href = '/avaliar/';
-                    });
+                avaliarBtn.href = `/avaliar/?professor_id=${professor.db_id}`;
                 
             } catch (error) {
                 console.error('Erro ao carregar dados do professor:', error);
