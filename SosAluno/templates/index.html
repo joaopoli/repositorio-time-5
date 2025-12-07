@@ -200,32 +200,60 @@
         }
         feather.replace();
 
-        // --- Lógica de Busca (Simulada) ---
+        // --- Lógica de Busca (Professores, Instituições e Cursos) ---
         const searchButton = document.getElementById('search-button');
         const searchInput = document.getElementById('search-input');
 
         function handleSearch() {
             const query = searchInput.value.trim().toLowerCase();
-            // Simulação: Se a busca for por "Alexandre Meslin" ou algo similar,
-            // redireciona para a página do professor com o ID do easter egg.
-            // Em um sistema real, esta lógica seria no backend.
-            // Simulação de busca: Em um sistema real, faria uma busca no banco de dados.
-            // Aqui, simulamos a busca por nome e redirecionamos para o ID correspondente.
-            let professorId = null;
+            
+            // Busca por Professores
             if (query.includes('alexandre') || query.includes('meslin')) {
-                professorId = 'alexandre-meslin';
+                window.location.href = '/professores/alexandre-meslin/';
+                return;
             } else if (query.includes('ana') || query.includes('silva')) {
-                professorId = 'ana-silva';
+                window.location.href = '/professores/ana-silva/';
+                return;
             } else if (query.includes('carlos') || query.includes('rodrigues')) {
-                professorId = 'carlos-rodrigues';
+                window.location.href = '/professores/carlos-rodrigues/';
+                return;
             }
-
-            if (professorId) {
-                window.location.href = `/professores/${professorId}/`;
-            } else {
-                // Se não encontrar, redireciona para a página de listagem de professores
-                window.location.href = '/professores/list/';
+            
+            // Busca por Instituições
+            if (query.includes('puc') || query.includes('puc-rio')) {
+                window.location.href = '/professores/instituicoes/puc-rio/';
+                return;
+            } else if (query.includes('ufrj')) {
+                window.location.href = '/professores/instituicoes/ufrj/';
+                return;
+            } else if (query.includes('usp')) {
+                window.location.href = '/professores/instituicoes/usp/';
+                return;
             }
+            
+            // Busca por Cursos
+            if (query.includes('engenharia') && query.includes('software')) {
+                window.location.href = '/professores/cursos/engenharia-software-puc/';
+                return;
+            } else if (query.includes('ciência') || query.includes('computação')) {
+                window.location.href = '/professores/cursos/ciencia-computacao-puc/';
+                return;
+            } else if (query.includes('matemática')) {
+                window.location.href = '/professores/cursos/matematica-ufrj/';
+                return;
+            } else if (query.includes('física')) {
+                window.location.href = '/professores/cursos/fisica-ufrj/';
+                return;
+            } else if (query.includes('elétrica')) {
+                window.location.href = '/professores/cursos/engenharia-eletrica-usp/';
+                return;
+            } else if (query.includes('medicina')) {
+                window.location.href = '/professores/cursos/medicina-usp/';
+                return;
+            }
+            
+            // Se não encontrar nada específico, redireciona para a página de listagem de professores
+            window.location.href = '/professores/list/';
         }
 
         searchButton.addEventListener('click', handleSearch);
