@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Política de Privacidade - SOS Aluno{% endblock %}
+
+{% block content %}
+<main class="flex-grow container mx-auto px-4 py-12">
+    <div class="bg-white dark:bg-dark-card p-8 md:p-12 rounded-card shadow-card max-w-4xl mx-auto">
+        <h1 class="font-montserrat text-4xl md:text-5xl font-bold text-primary dark:text-dark-primary mb-6 text-center">
+            Política de Privacidade
+        </h1>
+
+        <div class="prose prose-lg max-w-none text-charcoal dark:text-dark-charcoal space-y-6">
+            <p class="lead">
+                Sua privacidade e a segurança dos seus dados são pilares fundamentais no <strong>SOS Aluno</strong>. Esta política descreve como coletamos, usamos e protegemos suas informações, garantindo a transparência que defendemos em nossa missão.
+            </p>
+
+            <p><strong>Última atualização:</strong> {% now "d/m/Y" %}</p>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">1. Informações que Coletamos</h2>
+            <p>
+                Para garantir o anonimato e a segurança, coletamos o mínimo de informações necessárias para o funcionamento da plataforma:
+            </p>
+            <ul>
+                <li><strong>Avaliações e Comentários:</strong> Todo o conteúdo que você submete, como avaliações de professores e comentários, é armazenado de forma anônima. Não associamos sua identidade a nenhuma avaliação.</li>
+                <li><strong>Informações de Navegação:</strong> Coletamos dados não-pessoais, como tipo de navegador, dispositivo e páginas visitadas, para melhorar a experiência do usuário e a performance do site.</li>
+            </ul>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">2. Como Usamos Suas Informações</h2>
+            <p>
+                As informações coletadas são usadas exclusivamente para:
+            </p>
+            <ul>
+                <li><strong>Operar e Manter a Plataforma:</strong> Exibir avaliações, calcular médias e fornecer os serviços principais do SOS Aluno.</li>
+                <li><strong>Melhorar Nossos Serviços:</strong> Analisar tendências de uso para otimizar a navegação, a interface e desenvolver novas funcionalidades.</li>
+                <li><strong>Garantir a Segurança:</strong> Monitorar atividades suspeitas para proteger a integridade da comunidade e da plataforma.</li>
+            </ul>
+
+            <blockquote class="border-l-4 border-secondary pl-6 py-2 italic text-gray-600 dark:text-gray-400">
+                Seu anonimato é nossa prioridade. Nunca venderemos ou compartilharemos suas informações de identificação pessoal com terceiros.
+            </blockquote>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">3. Anonimato e Segurança de Dados</h2>
+            <p>
+                Projetamos o SOS Aluno para ser uma plataforma segura e anônima. As avaliações são publicadas sem qualquer vínculo com informações que possam identificar o autor. Utilizamos práticas de segurança padrão de mercado para proteger nossos servidores e bancos de dados contra acesso não autorizado.
+            </p>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">4. Cookies</h2>
+            <p>
+                Utilizamos cookies essenciais para o funcionamento do site, como o controle do tema (claro/escuro). Não utilizamos cookies de rastreamento ou publicidade de terceiros.
+            </p>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">5. Seus Direitos</h2>
+            <p>
+                Como o conteúdo é submetido de forma anônima, não há dados pessoais para serem acessados, corrigidos ou excluídos. Caso tenha alguma preocupação sobre um conteúdo específico que publicou, entre em contato conosco através da página de <a href="{% url 'contato' %}" class="text-secondary hover:underline">Contato</a>.
+            </p>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">6. Alterações a Esta Política</h2>
+            <p>
+                Podemos atualizar esta Política de Privacidade periodicamente. Notificaremos sobre mudanças significativas publicando a nova política nesta página e atualizando a data no topo. Recomendamos que você revise esta página regularmente para se manter informado.
+            </p>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">7. Contato</h2>
+            <p>
+                Se tiver qualquer dúvida sobre esta Política de Privacidade, entre em contato conosco através do email <a href="mailto:joaopoli@aluno.puc-rio.br" class="text-secondary hover:underline">joaopoli@aluno.puc-rio.br</a>.
+            </p>
+        </div>
+    </div>
+</main>
+{% endblock %}

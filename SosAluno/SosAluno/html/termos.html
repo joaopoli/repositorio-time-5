@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Termos de Uso - SOS Aluno{% endblock %}
+
+{% block content %}
+<main class="flex-grow container mx-auto px-4 py-12">
+    <div class="bg-white dark:bg-dark-card p-8 md:p-12 rounded-card shadow-card max-w-4xl mx-auto">
+        <h1 class="font-montserrat text-4xl md:text-5xl font-bold text-primary dark:text-dark-primary mb-6 text-center">
+            Termos de Uso
+        </h1>
+
+        <div class="prose prose-lg max-w-none text-charcoal dark:text-dark-charcoal space-y-6">
+            <p class="lead">
+                Bem-vindo ao <strong>SOS Aluno</strong>. Ao acessar e utilizar nossa plataforma, você concorda em cumprir e se vincular aos seguintes termos e condições. Leia-os com atenção. Estes termos garantem que nossa comunidade permaneça segura, respeitosa e construtiva.
+            </p>
+
+            <p><strong>Última atualização:</strong> {% now "d/m/Y" %}</p>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">1. Uso da Plataforma</h2>
+            <p>
+                O SOS Aluno é uma plataforma comunitária destinada a estudantes universitários. Você concorda em usar nossos serviços apenas para fins lícitos e de maneira que não infrinja os direitos de, restrinja ou iniba o uso e aproveitamento da plataforma por qualquer terceiro.
+            </p>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">2. Conduta do Usuário e Conteúdo</h2>
+            <p>
+                Você é inteiramente responsável pelo conteúdo que publica. Ao submeter avaliações e comentários, você concorda em seguir as seguintes diretrizes:
+            </p>
+            <ul>
+                <li><strong>Seja Respeitoso:</strong> Críticas construtivas são bem-vindas, mas ataques pessoais, linguagem ofensiva, discriminatória ou de assédio não serão tolerados.</li>
+                <li><strong>Seja Honesto:</strong> Forneça informações verídicas e baseadas em suas experiências pessoais. Não publique informações falsas ou enganosas.</li>
+                <li><strong>Mantenha o Foco:</strong> O conteúdo deve ser relevante para a avaliação de professores, cursos e instituições. Não publique spam, publicidade ou conteúdo não relacionado.</li>
+                <li><strong>Respeite a Privacidade:</strong> Não publique informações pessoais de terceiros, como números de telefone, e-mails ou endereços.</li>
+            </ul>
+            <p>
+                Reservamo-nos o direito de remover qualquer conteúdo que viole estas diretrizes, a nosso exclusivo critério e sem aviso prévio.
+            </p>
+
+            <blockquote class="border-l-4 border-secondary pl-6 py-2 italic text-gray-600 dark:text-gray-400">
+                O objetivo é construir, não destruir. Use sua voz para promover a transparência e ajudar outros estudantes.
+            </blockquote>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">3. Anonimato</h2>
+            <p>
+                Embora a plataforma seja projetada para ser anônima, você é responsável por não incluir informações de identificação em seus comentários. O SOS Aluno se compromete a não revelar a identidade dos usuários, conforme detalhado em nossa <a href="{% url 'privacidade' %}" class="text-secondary hover:underline">Política de Privacidade</a>.
+            </p>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">4. Propriedade Intelectual</h2>
+            <p>
+                Todo o conteúdo original da plataforma, incluindo textos, design, logos e gráficos (excluindo o conteúdo gerado pelo usuário), é de propriedade do SOS Aluno e protegido por leis de direitos autorais. Ao publicar conteúdo, você nos concede uma licença mundial, não exclusiva e isenta de royalties para usar, reproduzir e exibir esse conteúdo no âmbito da plataforma.
+            </p>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">5. Isenção de Responsabilidade</h2>
+            <p>
+                O conteúdo gerado pelos usuários reflete as opiniões de seus respectivos autores, e não as do SOS Aluno. Não garantimos a precisão, integridade ou qualidade de qualquer conteúdo na plataforma. Você concorda que o uso da plataforma é por sua conta e risco.
+            </p>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">6. Alterações nos Termos</h2>
+            <p>
+                Podemos revisar estes Termos de Uso a qualquer momento. A versão mais recente estará sempre disponível nesta página. Ao continuar a usar a plataforma após a publicação de alterações, você concorda com os novos termos.
+            </p>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">7. Contato</h2>
+            <p>
+                Se tiver alguma dúvida sobre estes Termos de Uso, entre em contato conosco através do email <a href="mailto:joaopoli@aluno.puc-rio.br" class="text-secondary hover:underline">joaopoli@aluno.puc-rio.br</a>.
+            </p>
+        </div>
+    </div>
+</main>
+{% endblock %}

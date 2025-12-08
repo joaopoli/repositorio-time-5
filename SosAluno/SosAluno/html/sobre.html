@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Sobre Nós - SOS Aluno{% endblock %}
+
+{% block content %}
+<main class="flex-grow container mx-auto px-4 py-12">
+    <div class="bg-white dark:bg-dark-card p-8 md:p-12 rounded-card shadow-card max-w-4xl mx-auto">
+        <h1 class="font-montserrat text-4xl md:text-5xl font-bold text-primary dark:text-dark-primary mb-6 text-center">
+            Nossa Missão: Iluminando a Jornada Acadêmica
+        </h1>
+
+        <div class="prose prose-lg max-w-none text-charcoal dark:text-dark-charcoal space-y-6">
+            <p class="lead text-xl">
+                Bem-vindo ao <strong>SOS Aluno</strong>, uma plataforma nascida da necessidade de transparência, clareza e apoio mútuo no ambiente universitário. Acreditamos que a jornada acadêmica, embora desafiadora, não precisa ser um caminho solitário e obscuro. Nossa missão é simples, mas poderosa: <strong>capacitar estudantes com informações reais para que tomem decisões mais conscientes e seguras</strong>.
+            </p>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">A Faísca por Trás da Ideia</h2>
+            <p>
+                Tudo começou com uma pergunta que todo estudante já se fez: "Como é, de verdade, a aula com aquele professor?". A escolha de uma disciplina, a montagem da grade horária e a definição de um rumo profissional são momentos cruciais, muitas vezes guiados por informações fragmentadas ou pela sorte. Sentimos na pele a falta de um espaço centralizado onde a voz dos próprios alunos pudesse servir como um farol para os outros.
+            </p>
+            <p>
+                O SOS Aluno foi criado para preencher essa lacuna. Não somos apenas um site de avaliações; somos uma comunidade construída sobre a base da colaboração. Cada avaliação compartilhada, cada comentário e cada informação sobre cursos e instituições contribuem para um ecossistema de conhecimento coletivo que beneficia a todos.
+            </p>
+
+            <blockquote class="border-l-4 border-secondary pl-6 py-2 italic text-gray-600 dark:text-gray-400">
+                "Acreditamos que a transparência não é apenas sobre expor o que está errado, mas sobre celebrar a excelência e guiar o aprimoramento contínuo."
+            </blockquote>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">Nossos Pilares</h2>
+            <div class="grid md:grid-cols-3 gap-6 text-center not-prose">
+                <div class="bg-background dark:bg-dark-background p-6 rounded-lg">
+                    <i data-feather="shield" class="w-12 h-12 text-secondary mx-auto mb-4"></i>
+                    <h3 class="font-montserrat font-semibold text-lg mb-2">Confiança</h3>
+                    <p class="text-sm">Garantimos o anonimato para que você se sinta seguro ao compartilhar suas experiências genuínas, sem medo de retaliação.</p>
+                </div>
+                <div class="bg-background dark:bg-dark-background p-6 rounded-lg">
+                    <i data-feather="users" class="w-12 h-12 text-secondary mx-auto mb-4"></i>
+                    <h3 class="font-montserrat font-semibold text-lg mb-2">Comunidade</h3>
+                    <p class="text-sm">A força da plataforma vem de cada estudante que contribui. Juntos, construímos um guia confiável para a vida acadêmica.</p>
+                </div>
+                <div class="bg-background dark:bg-dark-background p-6 rounded-lg">
+                    <i data-feather="trending-up" class="w-12 h-12 text-secondary mx-auto mb-4"></i>
+                    <h3 class="font-montserrat font-semibold text-lg mb-2">Empoderamento</h3>
+                    <p class="text-sm">Oferecemos as ferramentas para que você planeje seu futuro acadêmico com base em dados reais e experiências compartilhadas.</p>
+                </div>
+            </div>
+
+            <h2 class="font-montserrat text-2xl font-semibold text-primary dark:text-dark-primary pt-4">O Futuro é Colaborativo</h2>
+            <p>
+                O SOS Aluno está em constante evolução, e o futuro da plataforma será moldado por você. Estamos comprometidos em ouvir nossa comunidade para adicionar novas funcionalidades, expandir para mais instituições e continuar a ser a fonte de informação mais confiável para estudantes em todo o Brasil.
+            </p>
+            <p>
+                Junte-se a nós. Avalie, comente, explore e faça parte desta revolução de transparência. Sua voz tem o poder de transformar a experiência de milhares de estudantes.
+            </p>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contato - SOS Aluno{% endblock %}
+
+{% block content %}
+<main class="flex-grow container mx-auto px-4 py-12">
+    <div class="bg-white dark:bg-dark-card p-8 md:p-12 rounded-card shadow-card max-w-3xl mx-auto">
+        <h1 class="font-montserrat text-4xl md:text-5xl font-bold text-primary dark:text-dark-primary mb-6 text-center">
+            Entre em Contato
+        </h1>
+
+        <div class="prose prose-lg max-w-none text-charcoal dark:text-dark-charcoal space-y-6">
+            <p class="lead text-center">
+                Estamos aqui para ouvir você. Se tiver dúvidas, sugestões ou feedback sobre o <strong>SOS Aluno</strong>, não hesite em nos contatar.
+            </p>
+
+            <div class="bg-background dark:bg-dark-background p-8 rounded-lg text-center not-prose mt-8">
+                <div class="flex flex-col items-center space-y-4">
+                    <div class="w-24 h-24 rounded-full bg-secondary bg-opacity-10 flex items-center justify-center">
+                        <i data-feather="mail" class="w-12 h-12 text-secondary"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-montserrat text-xl font-semibold text-primary dark:text-dark-primary mb-2">CEO</h3>
+                        <a href="mailto:joaopoli@aluno.puc-rio.br" class="text-secondary hover:underline text-lg font-medium">
+                            joaopoli@aluno.puc-rio.br
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <p class="text-charcoal dark:text-dark-charcoal">
+                    Responderemos o mais breve possível. Sua opinião é fundamental para continuarmos melhorando a plataforma e servindo melhor à comunidade estudantil.
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

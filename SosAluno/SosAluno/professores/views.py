@@ -38,6 +38,22 @@ def index(request):
     """View para a página inicial (index.html)."""
     return render(request, 'index.html')
 
+def sobre(request):
+    """View para a página Sobre."""
+    return render(request, 'sobre.html')
+
+def contato(request):
+    """View para a página Contato."""
+    return render(request, 'contato.html')
+
+def privacidade(request):
+    """View para a página Política de Privacidade."""
+    return render(request, 'privacidade.html')
+
+def termos(request):
+    """View para a página Termos de Uso."""
+    return render(request, 'termos.html')
+
 # --- Views para Autenticação ---
 
 from rest_framework import viewsets
