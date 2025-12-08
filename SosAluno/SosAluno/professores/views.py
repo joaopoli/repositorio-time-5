@@ -6,31 +6,31 @@ from .models import Professor, Instituicao, Curso
 def professores_list(request):
     """View para a página de listagem de professores (professores_list.html)."""
     professores = Professor.objects.all()
-    return render(request, 'professores_list.html', {'professores': professores})
+    return render(request, 'professores/professores_list.html', {'professores': professores})
 
 def professor_detail(request, id_slug):
     """View para a página de detalhes de um professor (professor_detail.html)."""
     professor = get_object_or_404(Professor, id_slug=id_slug)
-    return render(request, 'professor_detail.html', {'professor': professor})
+    return render(request, 'professores/professor_detail.html', {'professor': professor})
 
 # --- Views para Instituições ---
 
 def instituicoes_list(request):
     """View para a página de listagem de instituições (instituicoes_list.html)."""
     instituicoes = Instituicao.objects.all()
-    return render(request, 'instituicoes_list.html', {'instituicoes': instituicoes})
+    return render(request, 'instituicoes/instituicoes_list.html', {'instituicoes': instituicoes})
 
 def instituicao_detail(request, id_slug):
     """View para a página de detalhes de uma instituição (instituicao_detail.html)."""
     instituicao = get_object_or_404(Instituicao, id_slug=id_slug)
-    return render(request, 'instituicao_detail.html', {'instituicao': instituicao})
+    return render(request, 'instituicoes/instituicao_detail.html', {'instituicao': instituicao})
 
 # --- Views para Cursos ---
 
 def curso_detail(request, id_slug):
     """View para a página de detalhes de um curso (curso_detail.html)."""
     curso = get_object_or_404(Curso, id_slug=id_slug)
-    return render(request, 'curso_detail.html', {'curso': curso})
+    return render(request, 'instituicoes/curso_detail.html', {'curso': curso})
 
 # --- Views para Páginas Estáticas ---
 

@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from professores.models import Professor, Comentario
+from SosAluno.professores.models import Professor, Comentario
 
 
 class Command(BaseCommand):

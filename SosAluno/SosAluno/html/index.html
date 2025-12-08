@@ -56,7 +56,9 @@
                 <h1 class="font-montserrat text-2xl font-bold">SOS Aluno</h1>
             </a>
             <nav class="hidden md:flex items-center space-x-8">
-                <!-- Navigation links removed -->
+                <a href="{% url 'professores-list' %}" class="hover:text-secondary transition">Professores</a>
+                <a href="{% url 'instituicoes-list' %}" class="hover:text-secondary transition">Instituições</a>
+                <a href="{% url 'sobre' %}" class="hover:text-secondary transition">Sobre</a>
             </nav>
             <div class="flex items-center space-x-4">
                 <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
@@ -95,6 +97,8 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-5xl">
             <a href="{% url 'professores-list' %}" class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer hover:opacity-80">
                 <div class="flex items-center mb-4">
+            <a href="{% url 'professores-list' %}" class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer hover:opacity-80 block">
+                <div class="flex items-center mb-4">
                     <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
                         <i data-feather="users" class="w-6 h-6 text-primary dark:text-dark-primary"></i>
                     </div>
@@ -102,22 +106,24 @@
                 </div>
                 <p class="text-charcoal text-opacity-80">Explore avaliações e informações sobre professores.</p>
             </a>
-            <div class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer">
+            <a href="{% url 'instituicoes-list' %}" class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer hover:opacity-80 block">
                 <div class="flex items-center mb-4">
                     <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                        <i data-feather="info" class="w-6 h-6 text-primary dark:text-dark-primary"></i>i>
+                        <i data-feather="book" class="w-6 h-6 text-primary dark:text-dark-primary"></i>
                     </div>
-                     <h3 class="font-montserrat text-lg font-semibold text-primary dark:text-dark-primary">Cursos</h3>
+                    <h3 class="font-montserrat text-lg font-semibold text-primary dark:text-dark-primary">Cursos</h3>
                 </div>
                 <p class="text-charcoal text-opacity-80">Compartilhe sua experiência para ajudar outros alunos.</p>
-            </div>
-            <div class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer">
+            </a>
+            <a href="{% url 'instituicoes-list' %}" class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer hover:opacity-80 block">
                 <div class="flex items-center mb-4">
                     <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
                         <i data-feather="home" class="w-6 h-6 text-primary dark:text-dark-primary"></i>
-                    </d                    <h3 class="font-montserrat text-lg font-semibold text-primary dark:text-dark-primary">Instituições</h3>               </div>
+                    </div>
+                    <h3 class="font-montserrat text-lg font-semibold text-primary dark:text-dark-primary">Instituições</h3>
+                </div>
                 <p class="text-charcoal text-opacity-80">Descubra informações detalhadas sobre os cursos universitários.</p>
-            </div>
+            </a>
             <a href="{% url 'sobre' %}" class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer hover:opacity-80 block">
                 <div class="flex items-center mb-4">
                     <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
@@ -202,9 +208,6 @@
 
         function handleSearch() {
             const query = searchInput.value.trim().toLowerCase();
-            // Simulação: Se a busca for por "Alexandre Meslin" ou algo similar,
-            // redireciona para a página do professor com o ID do easter egg.
-            // Em um sistema real, esta lógica seria no backend.
             // Simulação de busca: Em um sistema real, faria uma busca no banco de dados.
             // Aqui, simulamos a busca por nome e redirecionamos para o ID correspondente.
             let professorId = null;
@@ -217,10 +220,10 @@
             }
 
             if (professorId) {
-                window.location.href = `professor.html?id=${professorId}`;
+                window.location.href = `/professores/${professorId}/`;
             } else {
                 // Se não encontrar, redireciona para a página de listagem de professores
-                window.location.href = 'professores.html';
+                window.location.href = '/professores/list/';
             }
         }
 
