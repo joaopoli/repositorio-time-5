@@ -92,9 +92,15 @@
             <a href="{% url 'professor-detail' professor.id_slug %}" class="bg-white dark:bg-dark-card rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer transform hover:scale-105 overflow-hidden block">
                 <div class="p-6">
                     <!-- Foto -->
+                    {% if professor.foto %}
                     <div class="mb-4">
                         <img src="{{ professor.foto.url }}" alt="{{ professor.nome }}" class="w-full h-48 object-cover rounded-lg">
                     </div>
+                    {% else %}
+                    <div class="mb-4 h-48 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center">
+                        <span class="text-6xl text-white">{{ professor.nome.0 }}</span>
+                    </div>
+                    {% endif %}
 
                     <!-- Informações -->
                     <h3 class="font-montserrat text-xl font-bold text-primary dark:text-dark-primary mb-2">{{ professor.nome }}</h3>

@@ -73,7 +73,13 @@
         <div id="professor-profile" class="bg-white dark:bg-dark-card p-8 rounded-card shadow-card">
             <!-- Profile Header -->
             <div class="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 border-b pb-6 mb-6">
+                {% if professor.foto %}
                 <img src="{{ professor.foto.url }}" alt="Foto do Professor" class="w-32 h-32 rounded-full object-cover border-4 border-secondary">
+                {% else %}
+                <div class="w-32 h-32 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center border-4 border-secondary">
+                    <span class="text-4xl text-white">{{ professor.nome.0 }}</span>
+                </div>
+                {% endif %}
                 <div class="text-center md:text-left">
                     <h2 class="font-montserrat text-3xl font-bold text-primary dark:text-dark-primary">{{ professor.nome }}</h2>
                     <p class="text-xl text-charcoal dark:text-dark-charcoal mt-1">{{ professor.materia }}</p>
