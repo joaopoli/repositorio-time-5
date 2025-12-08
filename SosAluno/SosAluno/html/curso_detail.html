@@ -1,16 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOS Aluno - Professores</title>
+    <title>{{ curso.nome }} - SOS Aluno</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/styles_css.css">
-    <link rel="stylesheet" href="../css/professores.css">
+    <link rel="stylesheet" href="{% static 'css/styles_css.css' %}">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -71,29 +71,39 @@
 
     <!-- Main Content -->
     <main class="flex-grow container mx-auto px-4 py-12">
-        <!-- Page Title -->
-        <div class="mb-12">
-            <h2 class="font-montserrat text-4xl md:text-5xl font-bold text-primary dark:text-dark-primary mb-4">
-                Professores
-            </h2>
-            <p class="text-xl text-charcoal dark:text-dark-charcoal max-w-2xl">
-                Explore avaliações e informações sobre professores. Clique em um cartão para ver detalhes completos.
-            </p>
-        </div>
+        <div class="max-w-4xl mx-auto">
+            <!-- Informações do Curso -->
+            <div class="bg-white dark:bg-dark-card rounded-card shadow-card p-8">
+                <h2 class="font-montserrat text-4xl font-bold text-primary dark:text-dark-primary mb-4">{{ curso.nome }}</h2>
+                <p class="text-charcoal dark:text-dark-charcoal mb-6">{{ curso.descricao }}</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="flex items-center">
+                        <i data-feather="home" class="w-5 h-5 text-secondary mr-2"></i>
+                        <span class="text-charcoal dark:text-dark-charcoal"><strong>Instituição:</strong> <a href="{% url 'instituicao-detail' curso.instituicao.id_slug %}" class="text-secondary hover:underline">{{ curso.instituicao.nome }}</a></span>
+                    </div>
+                    <div class="flex items-center">
+                        <i data-feather="book" class="w-5 h-5 text-secondary mr-2"></i>
+                        <span class="text-charcoal dark:text-dark-charcoal"><strong>Área:</strong> {{ curso.area }}</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i data-feather="clock" class="w-5 h-5 text-secondary mr-2"></i>
+                        <span class="text-charcoal dark:text-dark-charcoal"><strong>Duração:</strong> {{ curso.duracao }}</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i data-feather="star" class="w-5 h-5 text-yellow-400 mr-2"></i>
+                        <span class="text-charcoal dark:text-dark-charcoal"><strong>Avaliação:</strong> {{ curso.avaliacao_geral }}/5</span>
+                    </div>
+                </div>
 
-        <!-- Filtro e Busca (Opcional) -->
-        <div class="mb-8 flex flex-col md:flex-row gap-4">
-            <input 
-                type="text" 
-                id="search-prof"
-                placeholder="Buscar professor..." 
-                class="flex-grow px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent dark:bg-dark-card dark:border-gray-700"
-            >
-        </div>
-
-        <!-- Grid de Professores (Previews) -->
-        <div id="professores-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Cartões de professores serão preenchidos via JavaScript -->
+                <!-- Botão de Voltar -->
+                <div class="mt-8">
+                    <a href="{% url 'instituicao-detail' curso.instituicao.id_slug %}" class="inline-flex items-center bg-secondary hover:bg-opacity-90 text-white px-6 py-3 rounded-lg font-medium transition">
+                        <i data-feather="arrow-left" class="w-5 h-5 mr-2"></i>
+                        Voltar para {{ curso.instituicao.nome }}
+                    </a>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -111,7 +121,7 @@
                 <div>
                     <h4 class="font-montserrat font-semibold mb-4">Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="{% url 'index' %}" class="hover:text-secondary transition">Início</a></li>
+                        <li><a href="/" class="hover:text-secondary transition">Início</a></li>
                         <li><a href="{% url 'professores-list' %}" class="hover:text-secondary transition">Professores</a></li>
                         <li><a href="#" class="hover:text-secondary transition">Contato</a></li>
                     </ul>
@@ -153,85 +163,6 @@
             document.documentElement.classList.add('dark');
         }
         feather.replace();
-
-        // --- Lógica para carregar e exibir professores ---
-        async function carregarProfessores() {
-            try {
-                // Tenta carregar da API Django primeiro
-                const response = await fetch('/professores/api/professores-list/');
-                const professores = await response.json();
-                renderizarProfessores(professores);
-                
-                // Adiciona funcionalidade de busca
-                const searchInput = document.getElementById('search-prof');
-                searchInput.addEventListener('input', () => {
-                    const query = searchInput.value.toLowerCase();
-                    const professoreFiltrados = professores.filter(p => 
-                        p.nome.toLowerCase().includes(query) || 
-                        p.materia.toLowerCase().includes(query) ||
-                        p.instituicao.toLowerCase().includes(query)
-                    );
-                    renderizarProfessores(professoreFiltrados);
-                });
-            } catch (error) {
-                console.error('Erro ao carregar professores:', error);
-                document.getElementById('professores-grid').innerHTML = '<p class="text-center text-error text-xl col-span-full">Erro ao carregar dados dos professores.</p>';
-            }
-        }
-
-        function renderizarProfessores(professores) {
-            const grid = document.getElementById('professores-grid');
-            grid.innerHTML = '';
-
-            if (professores.length === 0) {
-                grid.innerHTML = '<p class="text-center text-charcoal dark:text-dark-charcoal col-span-full">Nenhum professor encontrado.</p>';
-                return;
-            }
-
-            professores.forEach(prof => {
-                const cartao = document.createElement('div');
-                cartao.className = 'bg-white dark:bg-dark-card rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer transform hover:scale-105 overflow-hidden';
-                cartao.onclick = () => {
-                    window.location.href = `professor.html?id=${prof.id}`;
-                };
-
-                // Renderiza as estrelas
-                let estrelasHtml = '';
-                const avaliacao = prof.avaliacao_geral;
-                for (let i = 1; i <= 5; i++) {
-                    estrelasHtml += `<span class="text-yellow-400 ${avaliacao >= i ? 'text-lg' : 'text-gray-300 text-lg'}">★</span>`;
-                }
-
-                cartao.innerHTML = `
-                    <div class="relative h-48 bg-gradient-to-br from-primary to-secondary overflow-hidden">
-                        <img src="${prof.foto}" alt="${prof.nome}" class="w-full h-full object-cover opacity-80">
-                        <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-montserrat text-xl font-bold text-primary dark:text-dark-primary mb-2">${prof.nome}</h3>
-                        <p class="text-sm text-charcoal dark:text-dark-charcoal mb-1">
-                            <i data-feather="book" class="w-4 h-4 inline mr-1"></i>${prof.materia}
-                        </p>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                            <i data-feather="map-pin" class="w-4 h-4 inline mr-1"></i>${prof.instituicao}
-                        </p>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-1">
-                                ${estrelasHtml}
-                            </div>
-                            <span class="text-sm font-semibold text-primary dark:text-dark-primary">${prof.avaliacao_geral.toFixed(1)}</span>
-                        </div>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">${prof.total_avaliacoes} avaliações</p>
-                    </div>
-                `;
-
-                grid.appendChild(cartao);
-            });
-
-            feather.replace(); // Recarrega os ícones
-        }
-
-        document.addEventListener('DOMContentLoaded', carregarProfessores);
     </script>
 </body>
 </html>

@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/styles_css.css' %}">},{find:
+    <link rel="stylesheet" href="{% static 'css/styles_css.css' %}">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -95,7 +95,7 @@
 
         <!-- Quick Access Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-5xl">
-            <a href="professores.html" class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer hover:opacity-80">
+            <a href="{% url 'professores-list' %}" class="bg-white dark:bg-dark-card p-6 rounded-card shadow-card hover:shadow-lg transition-all cursor-pointer hover:opacity-80">
                 <div class="flex items-center mb-4">
                     <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
                         <i data-feather="users" class="w-6 h-6 text-primary"></i>
