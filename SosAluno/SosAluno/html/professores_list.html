@@ -141,25 +141,25 @@
                     <p class="text-white text-opacity-80">Transparência e apoio para sua jornada universitária.</p>
                 </div>
                 <div>
-                    <h4 class="font-montserrat font-semibold mb-4">Links</h4>
+                    <h4 class="font-montserrat font-semibold mb-4">Navegação</h4>
                     <ul class="space-y-2">
-                        <li><a href="/" class="hover:text-secondary transition">Início</a></li>
+                        <li><a href="{% url 'index' %}" class="hover:text-secondary transition">Início</a></li>
                         <li><a href="{% url 'professores-list' %}" class="hover:text-secondary transition">Professores</a></li>
-                        <li><a href="#" class="hover:text-secondary transition">Contato</a></li>
+                        <li><a href="{% url 'instituicoes-list' %}" class="hover:text-secondary transition">Instituições</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-montserrat font-semibold mb-4">Institucional</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-secondary transition">Sobre</a></li>
-                        <li><a href="#" class="hover:text-secondary transition">Contato</a></li>
+                        <li><a href="{% url 'sobre' %}" class="hover:text-secondary transition">Sobre</a></li>
+                        <li><a href="{% url 'contato' %}" class="hover:text-secondary transition">Contato</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-montserrat font-semibold mb-4">Legal</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-secondary transition">Termos de uso</a></li>
-                        <li><a href="#" class="hover:text-secondary transition">Política de privacidade</a></li>
+                        <li><a href="{% url 'termos' %}" class="hover:text-secondary transition">Termos de uso</a></li>
+                        <li><a href="{% url 'privacidade' %}" class="hover:text-secondary transition">Política de privacidade</a></li>
                     </ul>
                 </div>
             </div>
