@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
 from .models import Professor, Instituicao, Curso
 
 # --- Views para Professores ---
@@ -53,6 +54,36 @@ def privacidade(request):
 def termos(request):
     """View para a página Termos de Uso."""
     return render(request, 'termos.html')
+
+
+def login_view(request):
+    """Renderiza a página de login e responde a POST com um JSON (simples).
+    A função de autenticação completa não está implementada — retorna JSON informando isso.
+    """
+    if request.method == 'POST':
+        try:
+            import json
+            data = json.loads(request.body)
+        except Exception:
+            data = {}
+        return JsonResponse({'success': False, 'message': 'Autenticação não implementada.'})
+
+    return render(request, 'login.html', {'is_authenticated': request.user.is_authenticated, 'user': request.user})
+
+
+def cadastro_view(request):
+    """Renderiza a página de cadastro e responde a POST com um JSON (simples).
+    A funcionalidade real de criação de usuário não está implementada aqui.
+    """
+    if request.method == 'POST':
+        try:
+            import json
+            data = json.loads(request.body)
+        except Exception:
+            data = {}
+        return JsonResponse({'success': False, 'message': 'Cadastro não implementado.'})
+
+    return render(request, 'cadastro.html', {'is_authenticated': request.user.is_authenticated, 'user': request.user})
 
 # --- Views para Autenticação ---
 

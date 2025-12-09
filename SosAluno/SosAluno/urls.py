@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from SosAluno.professores.views import index, sobre, contato, privacidade, termos
+from SosAluno.professores.views import index, sobre, contato, privacidade, termos, login_view, cadastro_view
 
 urlpatterns = [
     path("", index, name="index"),
@@ -27,6 +27,8 @@ urlpatterns = [
     path("contato/", contato, name="contato"),
     path("privacidade/", privacidade, name="privacidade"),
     path("termos/", termos, name="termos"),
+    path("login/", login_view, name="login"),
+    path("cadastro/", cadastro_view, name="cadastro"),
     path("admin/", admin.site.urls),
     path("professores/", include("SosAluno.professores.urls")),
 ]
