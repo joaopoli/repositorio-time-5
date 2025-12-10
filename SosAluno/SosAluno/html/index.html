@@ -65,8 +65,15 @@
                     <i data-feather="sun" class="hidden dark:block w-5 h-5"></i>
                     <i data-feather="moon" class="block dark:hidden w-5 h-5"></i>
                 </button>
-                <a href="{% url 'login' %}" class="hover:text-secondary transition">Login</a>
-                <a href="{% url 'cadastro' %}" class="bg-secondary hover:bg-opacity-90 px-4 py-2 rounded-lg font-medium transition">Cadastrar-se</a>
+                {% if is_authenticated %}
+                    <div class="flex items-center space-x-3">
+                        <span class="text-white font-medium">{{ user.get_full_name|default:user.username }}</span>
+                        <a href="/logout/" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition">Sair</a>
+                    </div>
+                {% else %}
+                    <a href="/login/" class="hover:text-secondary transition">Login</a>
+                    <a href="/cadastro/" class="bg-secondary hover:bg-opacity-90 px-4 py-2 rounded-lg font-medium transition">Cadastrar-se</a>
+                {% endif %}
             </div>
         </div>
     </header>
@@ -79,6 +86,11 @@
         <p class="text-xl text-charcoal max-w-2xl text-center mb-12">
             Encontre avaliações de professores, informações sobre cursos e instituições para tomar decisões informadas.
         </p>
+
+        <div class="mb-8 flex items-center space-x-4">
+            <a href="{% url 'login' %}" class="inline-block bg-secondary text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition">Entrar</a>
+            <a href="{% url 'cadastro' %}" class="inline-block bg-white text-primary border border-primary px-6 py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition">Cadastrar-se</a>
+        </div>
 
         <!-- Search Section -->
         <div class="w-full max-w-3xl mb-16">

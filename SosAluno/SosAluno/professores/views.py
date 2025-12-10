@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
+from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth.models import User
 from .models import Professor, Instituicao, Curso
 
 # --- Views para Professores ---
@@ -60,30 +62,62 @@ def login_view(request):
     """Renderiza a página de login e responde a POST com um JSON (simples).
     A função de autenticação completa não está implementada — retorna JSON informando isso.
     """
+    error = None
     if request.method == 'POST':
-        try:
-            import json
-            data = json.loads(request.body)
-        except Exception:
-            data = {}
-        return JsonResponse({'success': False, 'message': 'Autenticação não implementada.'})
+        identifier = request.POST.get('identifier', '').strip()
+        password = request.POST.get('password', '').strip()
 
-    return render(request, 'login.html', {'is_authenticated': request.user.is_authenticated, 'user': request.user})
+        user = None
+        # Tentar autenticar por username
+        user = authenticate(request, username=identifier, password=password)
+        if not user:
+            # Tentar por email
+            try:
+                u = User.objects.filter(email__iexact=identifier).first()
+                if u:
+                    user = authenticate(request, username=u.username, password=password)
+            except Exception:
+                user = None
+
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            error = 'Usuário ou senha inválidos.'
+
+    return render(request, 'login.html', {'error': error})
 
 
 def cadastro_view(request):
     """Renderiza a página de cadastro e responde a POST com um JSON (simples).
     A funcionalidade real de criação de usuário não está implementada aqui.
     """
+    error = None
     if request.method == 'POST':
-        try:
-            import json
-            data = json.loads(request.body)
-        except Exception:
-            data = {}
-        return JsonResponse({'success': False, 'message': 'Cadastro não implementado.'})
+        fullname = request.POST.get('fullname', '').strip()
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '')
+        confirm_password = request.POST.get('confirm_password', '')
 
-    return render(request, 'cadastro.html', {'is_authenticated': request.user.is_authenticated, 'user': request.user})
+        if not fullname or not email or not password:
+            error = 'Todos os campos são obrigatórios.'
+        elif password != confirm_password:
+            error = 'As senhas não coincidem.'
+        elif User.objects.filter(email__iexact=email).exists():
+            error = 'Já existe uma conta com esse e-mail.'
+        else:
+            username_base = email.split('@')[0]
+            username = username_base
+            counter = 1
+            while User.objects.filter(username=username).exists():
+                username = f"{username_base}{counter}"
+                counter += 1
+
+            user = User.objects.create_user(username=username, email=email, password=password, first_name=fullname)
+            login(request, user)
+            return redirect('index')
+
+    return render(request, 'cadastro.html', {'error': error})
 
 # --- Views para Autenticação ---
 
