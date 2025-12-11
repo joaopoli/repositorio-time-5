@@ -116,9 +116,9 @@
                 <!-- Coluna de Ações -->
                 <div class="lg:col-span-1">
                     <h3 class="font-montserrat text-xl font-semibold text-primary dark:text-dark-primary mb-4">Ações</h3>
-                    <button class="w-full bg-secondary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center mb-4">
+                    <a href="{% url 'professor-avaliar' professor.id_slug %}" class="w-full bg-secondary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center mb-4 block">
                         <i data-feather="star" class="w-5 h-5 mr-2"></i> Avaliar Professor
-                    </button>
+                    </a>
                     <button class="w-full bg-primary hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium transition flex items-center justify-center">
                         <i data-feather="message-square" class="w-5 h-5 mr-2"></i> Enviar Mensagem (Simulado)
                     </button>

@@ -14,6 +14,7 @@ urlpatterns = [
     # URLs para renderizar templates HTML (com dados do Django)
     path('list/', views.professores_list, name='professores-list'),
     path('<str:id_slug>/', views.professor_detail, name='professor-detail'),
+    path('<str:id_slug>/avaliar/', views.avaliar_professor, name='professor-avaliar'),
     
     # URLs para JSON simples (API)
     path('api/professores-list/', views.professores_list_api, name='professores-list-api'),

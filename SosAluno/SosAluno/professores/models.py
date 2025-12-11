@@ -30,6 +30,7 @@ class Comentario(models.Model):
 
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name='comentarios')
     tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)
+    nota = models.IntegerField(default=5, help_text="Nota de 1 a 5")
     texto = models.TextField()
     criado_em = models.DateTimeField(auto_now_add=True)
 

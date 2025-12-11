@@ -16,6 +16,53 @@ def professor_detail(request, id_slug):
     professor = get_object_or_404(Professor, id_slug=id_slug)
     return render(request, 'professores/professor_detail.html', {'professor': professor})
 
+def avaliar_professor(request, id_slug):
+    """View para avaliação de um professor (página com formulário de nota + comentário)."""
+    professor = get_object_or_404(Professor, id_slug=id_slug)
+    error = None
+    
+    if request.method == 'POST':
+        nota = request.POST.get('nota', '').strip()
+        comentario = request.POST.get('comentario', '').strip()
+        
+        # Validação
+        if not nota or not comentario:
+            error = 'Por favor, preencha a nota e o comentário.'
+        elif not nota.isdigit() or int(nota) < 1 or int(nota) > 5:
+            error = 'A nota deve ser um número entre 1 e 5.'
+        elif len(comentario) < 10:
+            error = 'O comentário deve ter pelo menos 10 caracteres.'
+        else:
+            # Determinar tipo baseado na nota
+            tipo = 'positivo' if int(nota) >= 3 else 'negativo'
+            
+            # Criar comentário
+            novo_comentario = Comentario.objects.create(
+                professor=professor,
+                nota=int(nota),
+                tipo=tipo,
+                texto=comentario
+            )
+            
+            # Atualizar avaliação geral do professor
+            comentarios = professor.comentarios.all()
+            total_notas = sum([c.nota for c in comentarios])
+            total_avaliacoes = comentarios.count()
+            
+            professor.avaliacao_geral = total_notas / total_avaliacoes if total_avaliacoes > 0 else 0
+            professor.total_avaliacoes = total_avaliacoes
+            professor.save()
+            
+            # Redirecionar para a página do professor
+            return redirect('professor-detail', id_slug=id_slug)
+    
+    return render(request, 'professores/professor_avaliar.html', {
+        'professor': professor,
+        'error': error,
+        'is_authenticated': request.user.is_authenticated,
+        'user': request.user
+    })
+
 # --- Views para Instituições ---
 
 def instituicoes_list(request):
