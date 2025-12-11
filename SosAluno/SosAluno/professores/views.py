@@ -39,7 +39,10 @@ def curso_detail(request, id_slug):
 
 def index(request):
     """View para a página inicial (index.html)."""
-    return render(request, 'index.html')
+    return render(request, 'index.html', {
+        'is_authenticated': request.user.is_authenticated,
+        'user': request.user
+    })
 
 def sobre(request):
     """View para a página Sobre."""
